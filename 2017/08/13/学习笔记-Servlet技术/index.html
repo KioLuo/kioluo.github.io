@@ -1,0 +1,906 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="//Servlet概述 一个servlet就是一个java类，并提供基于请求-响应模式的web服务。 //创建Servlet 新建继承HttpServlet的类，覆盖init(), destroy(), service(HttpServletRequest req, HttpServletResponse res), doGet(HttpServletRequest req, HttpServl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习笔记--Servlet技术">
+<meta property="og:url" content="http://yoursite.com/2017/08/13/学习笔记-Servlet技术/index.html">
+<meta property="og:site_name" content="KioLuo">
+<meta property="og:description" content="//Servlet概述 一个servlet就是一个java类，并提供基于请求-响应模式的web服务。 //创建Servlet 新建继承HttpServlet的类，覆盖init(), destroy(), service(HttpServletRequest req, HttpServletResponse res), doGet(HttpServletRequest req, HttpServl">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-13T11:08:39.827Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习笔记--Servlet技术">
+<meta name="twitter:description" content="//Servlet概述 一个servlet就是一个java类，并提供基于请求-响应模式的web服务。 //创建Servlet 新建继承HttpServlet的类，覆盖init(), destroy(), service(HttpServletRequest req, HttpServletResponse res), doGet(HttpServletRequest req, HttpServl">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/13/学习笔记-Servlet技术/"/>
+
+
+
+
+
+  <title> 学习笔记--Servlet技术 | KioLuo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KioLuo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">hahaha~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/13/学习笔记-Servlet技术/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KioLuo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://b-ssl.duitang.com/uploads/item/201602/18/20160218194039_c2Kmt.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KioLuo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                学习笔记--Servlet技术
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-13T19:05:03+08:00">
+                2017-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p><strong>//Servlet概述</strong></p>
+<p>一个servlet就是一个java类，并提供基于请求-响应模式的web服务。</p>
+<p><strong>//创建Servlet</strong></p>
+<p>新建继承HttpServlet的类，覆盖init(), destroy(), service(HttpServletRequest req, HttpServletResponse res), doGet(HttpServletRequest req, HttpServletResponse res)方法</p>
+<p><strong>//配置Servlet</strong></p>
+<p>在web.xml中servlet项加入项，如：</p>
+<p>  data1</p>
+<p>  value1</p>
+<p>  data2</p>
+<p>  value2</p>
+<p>TestServlet</p>
+<p>com.netease.server.example.web.controller.TestServlet</p>
+<p>代码中相应方法：</p>
+<pre><code>ServletConfig config = this.getServletConfig();
+
+String v1 = config.getInitParameter(&quot;data1&quot;);  
+</code></pre><p>全局配置：</p>
+<p>在servlet项外加入项，如：</p>
+<p>  globalData1</p>
+<p>  123</p>
+<p>代码中相应方法：</p>
+<pre><code>ServletContext context = this.getServletContext();
+
+String globalV1 = context.getInitParameter(&quot;globalData1&quot;);  
+</code></pre><p>ServletMapping匹配规则：</p>
+<p>支持模糊匹配</p>
+<p>精确路径匹配（完全匹配）—&gt; 最长路径匹配（最长前缀匹配）—&gt;  扩展名匹配 —&gt; default servlet或放弃</p>
+<p>更改servlet默认启动时间：</p>
+<p>在元素中增加元素，负数为第一次请求时启动该servlet，大于等于0则在servlet容器启动时启动servlet，数字越小，优先级越高，如：</p>
+<p>0</p>
+<p>配置错误页面：</p>
+<pre><code>404
+
+/404.html
+</code></pre><p>配置欢迎页面：</p>
+<p>元素，可包含多个元素，顺序加载</p>
+<p>MIME类型映射</p>
+<p>定义扩展文件名映射类型，包含两个子元素：和</p>
+<p><strong>//Servelt共享动态属性</strong></p>
+<p>一个servlet代码中：</p>
+<pre><code>ServletContext context = this.getServletContext();  
+
+context.setAttribute(&quot;attribute1&quot;, &quot;123&quot;);  
+</code></pre><p>另一个servlet代码中：</p>
+<pre><code>String globalV1 = (String)context.getAttribute(&quot;attribute1&quot;);  
+</code></pre><p><strong>//Servlet读取外部资源配置文件信息</strong></p>
+<p>三种方法：</p>
+<p>1. getResource</p>
+<p>代码如：</p>
+<pre><code>ServletContext context = this.getServletContext();  
+
+URL url = context.getResource(&quot;/WEB-INF/log4j.properties&quot;);
+
+InputStream in = url.openStream();
+
+String propertyValue = GeneralUtil.getPropery(&quot;log4j.rootCategory&quot;, in);  
+</code></pre><p>2. getResourceAsStream</p>
+<p>代码如：</p>
+<pre><code>InputStream in2 = context.getResourceAsStream(&quot;/WEB-INF/log4j.properties&quot;);
+
+String p2 = GeneralUtil.getPropery(&quot;log4j.rootCategory&quot;, in2); 
+</code></pre><p>3. getRealPath</p>
+<p>代码如：</p>
+<pre><code>String path = context.getRealPath(&quot;/WEB-INF/log4j.properties&quot;);
+
+File file = new File(path);
+
+InputStream in3 = new FileInputStream(file);
+
+String p3 = GeneralUtil.getPropery(&quot;log4j.rootCategory&quot;, in3);  
+</code></pre><p><strong>//HttpServletRequest实现类方法：</strong></p>
+<p>1. 获得客户机信息</p>
+<p>getRequestURL方法返回客户端发出请求时的完整URL。</p>
+<p>getRequestURI方法返回请求行中的资源名部分。</p>
+<p>getQueryString 方法返回请求行中的参数部分。</p>
+<p>getRemoteAddr方法返回发出请求的客户机的IP地址</p>
+<p>getRemoteHost方法返回发出请求的客户机的完整主机名</p>
+<p>getRemotePort方法返回客户机所使用的网络端口号</p>
+<p>getLocalAddr方法返回WEB服务器的IP地址。</p>
+<p>getLocalName方法返回WEB服务器的主机名</p>
+<p>getMethod得到客户机请求方式</p>
+<p>getServerPath()获取请求的文件的路径</p>
+<p>2. 获得客户机请求头</p>
+<p>getHeader(string name)方法</p>
+<p>getHeaders(String name)方法</p>
+<p>getHeaderNames方法</p>
+<p>3. 获得客户机请求参数(客户端提交的数据)</p>
+<p>getParameter(name)方法 获取请求中的参数，该参数是由name指定的</p>
+<p>getParameterValues（String name）方法 获取指定名称参数的所有值数组。它适用于一个参数名对应多个值的情况。如页面表单中的复选框，多选列表提交的值。</p>
+<p>getParameterNames方法 返回一个包含请求消息中的所有参数名的Enumeration对象。通过遍历这个Enumeration对象，就可以获取请求消息中所有的参数名。</p>
+<p>getCharacterEncoding() 返回请求的字符编码方式</p>
+<p>getAttributeNames()返回当前请求的所有属性的名字集合赋值:setAttribute()</p>
+<p>getAttribute(String name) 返回name指定的属性值</p>
+<p>getsession()返回和客户端相关的session，如果没有给客户端分配session，则返回null</p>
+<p>getParameterMap():返回一个保存了请求消息中的所有参数名和值的Map对象。Map对象的key是字符串类型的参数名，value是这个参数所对应的Object类型的值数组</p>
+<p>addHeader(String name,String value)  将指定的名字和值加入到响应的头信息中</p>
+<p><strong>//HttpServletResponse实现类方法：</strong></p>
+<p>encodeURL(String url)  编码指定的URL</p>
+<p>sendError(int sc)  使用指定状态码发送一个错误到客户端</p>
+<p>setDateHeader(String name,long date)  将给出的名字和日期设置响应的头部</p>
+<p>setHeader(String name,String value)  将给出的名字和值设置响应的头部</p>
+<p>setStatus(int sc)  给当前响应设置状态码</p>
+<p>setContentType(String ContentType)  设置响应的MIME类型 ,页面的设置文本类型,获取或设置输出流的 HTTP MIME 类型。输出流的 HTTP MIME 类型。默认值为“text/html”</p>
+<p>getOutputStream()  字节输出流对象</p>
+<p>getWriter()   字符的输出流对象</p>
+<p><strong>//Cookie和Session</strong></p>
+<p>关于Cookie</p>
+<p>cookie数量限制：20个，每个大小限制：4kb</p>
+<pre><code>Cookie userNameCookie = new Cookie(&quot;userName&quot;, userName);  //创建cookie
+
+userNameCookie.setMaxAge(10 * 60);        //设置cookie有效时间
+
+response.addCookie(userNameCookie);        //在响应中加入cookie
+
+Cookie[] cookies = request.getCookies();        //从请求中获取cookie
+
+cookie.getValue();          //从cookie中获取值
+
+cookie.getName();          //从cookie中获取名字
+</code></pre><p>关于Session</p>
+<p>默认有效期30分钟，setMaxInactiveInterval设置有效期，invalidate使session失效</p>
+<pre><code>HttpSession session = request.getSession();
+
+String name = (String) session.getAttribute(&quot;userName&quot;); 
+
+session.setMaxInactiveInterval(2 * 60);
+
+session.setAttribute(&quot;userName&quot;, userName);
+
+session.invalidate();
+</code></pre><p>在部署描述符web.xml中配置有效期：</p>
+<p>5</p>
+<p><strong>//请求转发与重定向</strong></p>
+<p>请求转发：</p>
+<p>获取RequestDispatcher：</p>
+<p>方法1：</p>
+<p>RequestDispatcher rd = req.getRequestDispatcher(“/forwardExample”);        //可以是绝对路径或者相对路径</p>
+<p>方法2：</p>
+<p>RequestDispatcher rd = this.getServletContext().getNameDispatcher(“ServletForwardExample”); //转发到的servlet名称</p>
+<p>或者</p>
+<p>RequestDispatcher rd = this.getServletContext().getRequestDispatcher(“/forwardExample”);       //只能是绝对路径</p>
+<p>转发：</p>
+<p>rd.forward(req, resp);</p>
+<p>请求重定向：</p>
+<p>resp.sendRedirect(“redirectExample”);          //相对路径则访问本web，绝对路径可以访问其他web</p>
+<p><strong>//过滤器与监听器</strong></p>
+<p>启动顺序：ServletContext—&gt;listener—&gt;filter—&gt;servlet</p>
+<p>过滤器：</p>
+<p>创建实现Filter接口的类作为过滤器，在web.xml中增加项和，可定义多个，可配置FilterConfig，如下：</p>
+<p>filterParam</p>
+<p>111</p>
+<p>TestFilter</p>
+<p>com.netease.server.example.web.controller.filter.TestFilter</p>
+<p>TestFilter</p>
+<p>/hello/world/*</p>
+<p>代码中：</p>
+<pre><code>String value = filterConfig.getInitParameter(&quot;filterParam&quot;);
+</code></pre><p>在doFilter方法中可对request进行处理，如：</p>
+<pre><code>@Override
+
+public void doFilter(ServletRequest request, ServletResponse response,
+
+        FilterChain chain) throws IOException, ServletException {
+
+    System.out.println(&quot;filter doFilter method&quot;);
+
+    HttpServletRequest req = (HttpServletRequest) request;
+
+    HttpSession session = req.getSession();
+
+    if (session.getAttribute(&quot;username&quot;) == null) {
+
+        HttpServletResponse res = (HttpServletResponse) response;
+
+        res.sendRedirect(&quot;../index.html&quot;);
+
+    } else {
+
+        chain.doFilter(request, response);
+
+    }
+
+}
+</code></pre><p>监听器：</p>
+<p>分类</p>
+<p>1. 监听应用程序环境 ServletContext</p>
+<p>ServletContextListener</p>
+<p>ServletContextAttributeListener</p>
+<p>2. 监听用户请求对象 ServletRequest</p>
+<p>ServletRequestListener</p>
+<p>ServletRequestAttributeListener</p>
+<p>3. 监听用户会话对象 HttpSession</p>
+<p>HttpSessionListener</p>
+<p>HttpSessionAttributeListener</p>
+<p>HttpSessionActivationListener</p>
+<p>HttpSessionBindingListener</p>
+<p>创建实现相关接口的类，如实现HttpSessionAttributeListener，ServletContextListener, ServletRequestListener接口的类</p>
+<p>在web.xml中增加项：</p>
+<p>  com.netease.server.example.web.controller.listener.TestListener</p>
+<p><strong>//Servlet并发处理</strong></p>
+<p>特征：单实例，多线程，线程不安全</p>
+<p>变量的线程安全：</p>
+<p>–参数变量本地化</p>
+<p>–使用同步块synchronized</p>
+<p>属性的线程安全：</p>
+<p>–SerletContext线程不安全</p>
+<p>–HttpSession理论上线程安全</p>
+<p>–ServletRequest线程安全</p>
+<p>避免在Servlet中创建线程</p>
+<p>多个Servlet访问外部对象加锁</p>
+<p>在代码中加入</p>
+<p>synchronized (this) {</p>
+<p>…</p>
+<p>}</p>
+<p><strong>//JSP</strong></p>
+<p>动态网页技术标准</p>
+<p>简化的servlet</p>
+<p>JSP = Html + Java + JSP tag</p>
+<p>JSP处理流程：</p>
+<p>客户端—&gt;发送JSP请求—&gt;JSP文件—&gt;转换为Servlet文件—&gt;编译为class文件—&gt;执行并载入servlet实例—&gt;返回响应到客户端</p>
+<p>JSP基本语法：</p>
+<p>1. 静态内容</p>
+<p>模板数据</p>
+<p>2. 指令</p>
+<p>page指令</p>
+<p>–定义页面的依赖属性，比如脚本语言、error页面、缓存需求等</p>
+<p>include指令</p>
+<p>–包含其他文件</p>
+<p>taglib指令</p>
+<p>–引入标签库的定义</p>
+<p>3. 注释</p>
+<p>&lt;%– 注释 –%&gt;</p>
+<p>4. 表达式</p>
+<p>&lt;%= 表达式 %&gt;</p>
+<p> 如下：</p>
+<p> Today’s date: &lt;%= (new java.util.Date()).toLocaleString() %&gt; </p>
+<p>5. 声明</p>
+<p>&lt;%! declaration; [declaration; ] + … %&gt;</p>
+<p>如：&lt;%! int a, b, c; %&gt;</p>
+<p>6. 脚本</p>
+<p>&lt;% 代码片段 %&gt;</p>
+<p>如下：</p>
+<p>&lt;% out.println(“Your IP address is : “ + request.getRemoteAddr()); %&gt;</p>
+<p>JSP内置对象</p>
+<p>request             HttpServletRequest类的实例</p>
+<p>response          HttpServletResponse类的实例</p>
+<p>out                    PrintWriter类的实例，用于把结果输出至网页上</p>
+<p>session            HttpSession类的实例</p>
+<p>applicaiton       ServletContext类的实例，与应用上下文有关</p>
+<p>config               ServletConfig类的实例</p>
+<p>page                 类似于Java中的this关键字</p>
+<p>pageContext    PageContext类的实例，提供对JSP页面的所有对象以及所有命名空间的访问</p>
+<p>Exception         Exception类的对象，代表发生错误的JSP页面对应的异常对象</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/13/学习笔记-MySQL/" rel="next" title="学习笔记--MySQL">
+                <i class="fa fa-chevron-left"></i> 学习笔记--MySQL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/13/学习笔记-Spring框架/" rel="prev" title="学习笔记--Spring框架">
+                学习笔记--Spring框架 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://b-ssl.duitang.com/uploads/item/201602/18/20160218194039_c2Kmt.jpeg"
+               alt="KioLuo" />
+          <p class="site-author-name" itemprop="name">KioLuo</p>
+           
+              <p class="site-description motion-element" itemprop="description">gogogo~</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KioLuo</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

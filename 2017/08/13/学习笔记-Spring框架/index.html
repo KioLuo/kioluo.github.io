@@ -1,0 +1,1683 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="//概述 轻量级，一站式，开发框架 IoC，Inversion of Control，控制反转 DI，Dependency Injection，依赖注入 AOP，Aspect-Oriented Programming，面向切面编程：业务逻辑与非业务逻辑分离，如日志、安全… IoC容器： 对象创建、装配 对象生命周期管理 上下文环境 //IoC容器 IoC = ApplicationContext">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习笔记--Spring框架">
+<meta property="og:url" content="http://yoursite.com/2017/08/13/学习笔记-Spring框架/index.html">
+<meta property="og:site_name" content="KioLuo">
+<meta property="og:description" content="//概述 轻量级，一站式，开发框架 IoC，Inversion of Control，控制反转 DI，Dependency Injection，依赖注入 AOP，Aspect-Oriented Programming，面向切面编程：业务逻辑与非业务逻辑分离，如日志、安全… IoC容器： 对象创建、装配 对象生命周期管理 上下文环境 //IoC容器 IoC = ApplicationContext">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-13T11:08:52.985Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习笔记--Spring框架">
+<meta name="twitter:description" content="//概述 轻量级，一站式，开发框架 IoC，Inversion of Control，控制反转 DI，Dependency Injection，依赖注入 AOP，Aspect-Oriented Programming，面向切面编程：业务逻辑与非业务逻辑分离，如日志、安全… IoC容器： 对象创建、装配 对象生命周期管理 上下文环境 //IoC容器 IoC = ApplicationContext">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/13/学习笔记-Spring框架/"/>
+
+
+
+
+
+  <title> 学习笔记--Spring框架 | KioLuo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KioLuo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">hahaha~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/13/学习笔记-Spring框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KioLuo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://b-ssl.duitang.com/uploads/item/201602/18/20160218194039_c2Kmt.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KioLuo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                学习笔记--Spring框架
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-13T19:05:13+08:00">
+                2017-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>//概述</strong></p>
+<p>轻量级，一站式，开发框架</p>
+<p>IoC，Inversion of Control，控制反转</p>
+<p>DI，Dependency Injection，依赖注入</p>
+<p>AOP，Aspect-Oriented Programming，面向切面编程：业务逻辑与非业务逻辑分离，如日志、安全…</p>
+<p>IoC容器：</p>
+<p>对象创建、装配</p>
+<p>对象生命周期管理</p>
+<p>上下文环境</p>
+<p><strong>//IoC容器</strong></p>
+<p>IoC = ApplicationContext  (org.springframework.context,  spring-context)</p>
+<p>初始化</p>
+<p>ApplicationContext context = new ClassPathXmlApplicationContext(“application-context.xml”);</p>
+<p>或</p>
+<p>ApplicationContext context = new FileSystemXmlApplicationContext(“/home/user/conf/application-context.xml”);</p>
+<p>或在web.xml中</p>
+<pre><code>&lt;context-param&gt;
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+    &lt;param-value&gt;classpath:application-context.xml&lt;/param-value&gt;
+&lt;/context-param&gt;
+
+&lt;listener&gt;
+    &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;
+&lt;/listener&gt;
+</code></pre><p><strong>Bean定义</strong></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;bean id=&quot;screwDriver&quot; class=&quot;com.netease.course.ScrewDriver&quot;&gt;&lt;/bean&gt;
+
+&lt;/beans&gt;
+</code></pre><p><strong>Bean使用</strong></p>
+<p>//初始化容器</p>
+<p>ApplicationContext context = new ClassPathXmlApplicationContext(“application-context.xml”);</p>
+<p>//获取对象</p>
+<p>ScrewDriver screwDriver = context.getBean(“screwDriver”, ScrewDriver.class);</p>
+<p>//使用对象</p>
+<p>screwDriver.use();</p>
+<p><strong>Bean作用域</strong></p>
+<p>singleton，单例</p>
+<pre><code>&lt;bean id=&quot;screwDriver&quot; class=&quot;com.netease.course.ScrewDriver&quot; scope=&quot;singleton&quot;&gt;&lt;/bean&gt;
+</code></pre><p>默认为单例<br>prototype，每次引用创建一个实例</p>
+<pre><code>&lt;bean id=&quot;screwDriver&quot; class=&quot;com.netease.course.ScrewDriver&quot; scope=&quot;prototype&quot;&gt;&lt;/bean&gt;
+</code></pre><p>request scope, requestBean<br>session scope, sessionBean<br>application scope, appBean<br>global scope</p>
+<p><strong>Bean生命周期回调</strong></p>
+<p>创建，申请资源<br>可以通过实现接口</p>
+<pre><code>public interface InitializingBean {
+    void afterPropertiesSet() throws Exception;
+}
+</code></pre><p>或者直接在application-context.xml中配置</p>
+<pre><code>&lt;bean id=&quot;screwDriver&quot; class=&quot;com.netease.course.ScrewDriver&quot; init-method=&quot;init&quot;&gt;&lt;/bean&gt;
+</code></pre><p>对应代码</p>
+<pre><code>public class ScrewDriver {
+   public void init() {
+        System.out.println(&quot;Init screwDriver&quot;);
+   }
+}
+</code></pre><p>销毁<br>可以通过实现接口</p>
+<pre><code>public interface DisposableBean {
+    void destroy() throws Exception;
+}
+</code></pre><p>或者直接在application-context.xml中配置</p>
+<pre><code>&lt;bean id=&quot;screwDriver&quot; class=&quot;com.netease.course.ScrewDriver&quot; destroy-method=&quot;cleanup&quot;&gt;&lt;/bean&gt;
+</code></pre><p>对应代码</p>
+<pre><code>public class ScrewDriver {
+   public void cleanup() {
+        System.out.println(&quot;Cleanup screwDriver&quot;);
+   }
+}
+</code></pre><p>关闭Bean</p>
+<pre><code>((ConfigurableApplicationContext) context).close();
+</code></pre><p><strong>依赖注入</strong></p>
+<p>构造函数，强依赖</p>
+<p>Setter函数，可选依赖</p>
+<p>配置bean的类的构造函数的参数</p>
+<pre><code>&lt;bean id=&quot;straightHeader&quot; class=&quot;com.netease.course.StraightHeader&quot;&gt;
+     &lt;constructor-arg value=&quot;red&quot;&gt;&lt;/constructor-arg&gt;
+     &lt;constructor-arg value=&quot;15&quot;&gt;&lt;/constructor-arg&gt;
+ &lt;/bean&gt;
+</code></pre><p>或</p>
+<pre><code>&lt;bean id=&quot;straightHeader&quot; class=&quot;com.netease.course.StraightHeader&quot;&gt;
+    &lt;constructor-arg index=&quot;0&quot; value=&quot;red&quot;&gt;&lt;/constructor-arg&gt;
+    &lt;constructor-arg index=&quot;1&quot; value=&quot;15&quot;&gt;&lt;/constructor-arg&gt;
+&lt;/bean&gt;
+</code></pre><p>或</p>
+<pre><code>&lt;bean id=&quot;straightHeader&quot; class=&quot;com.netease.course.StraightHeader&quot;&gt;
+    &lt;constructor-arg type=&quot;java.lang.String&quot; value=&quot;red&quot;&gt;&lt;/constructor-arg&gt;
+    &lt;constructor-arg type=&quot;int&quot; value=&quot;15&quot;&gt;&lt;/constructor-arg&gt;
+&lt;/bean&gt;
+</code></pre><p>或</p>
+<pre><code>&lt;bean id=&quot;straightHeader&quot; class=&quot;com.netease.course.StraightHeader&quot;&gt;
+    &lt;constructor-arg name=&quot;color&quot; value=&quot;red&quot;&gt;&lt;/constructor-arg&gt;
+    &lt;constructor-arg name=&quot;size&quot; value=&quot;15&quot;&gt;&lt;/constructor-arg&gt;
+&lt;/bean&gt;
+</code></pre><p>需要传递集合类型的构造函数参数（如map）时</p>
+<pre><code>&lt;bean id=&quot;straightHeader&quot; class=&quot;com.netease.course.StraightHeader&quot;&gt;
+    &lt;constructor-arg&gt;
+        &lt;map&gt;
+            &lt;entry key=&quot;color&quot; value=&quot;red&quot;&gt;&lt;/entry&gt;
+            &lt;entry key=&quot;size&quot; value=&quot;15&quot;&gt;&lt;/entry&gt;
+        &lt;/map&gt;
+    &lt;/constructor-arg&gt;
+    &lt;constructor-arg name=&quot;size&quot; value=&quot;15&quot;&gt;&lt;/constructor-arg&gt;
+&lt;/bean&gt;
+</code></pre><p>传入list时</p>
+<pre><code>&lt;bean id=&quot;straightHeader&quot; class=&quot;com.netease.course.StraightHeader&quot;&gt;
+    &lt;constructor-arg&gt;
+        &lt;list&gt;
+            &lt;value&gt;red&lt;/value&gt;
+            &lt;value&gt;15&lt;/value&gt;
+        &lt;/list&gt;
+    &lt;/constructor-arg&gt;
+    &lt;constructor-arg name=&quot;size&quot; value=&quot;15&quot;&gt;&lt;/constructor-arg&gt;
+&lt;/bean&gt;
+</code></pre><p>传入Properties时</p>
+<pre><code>&lt;bean id=&quot;straightHeader&quot; class=&quot;com.netease.course.StraightHeader&quot;&gt;
+    &lt;constructor-arg&gt;
+        &lt;props&gt;
+            &lt;prop key=&quot;color&quot;&gt;red&lt;/prop&gt;
+            &lt;prop key=&quot;size&quot;&gt;15&lt;/prop&gt;
+        &lt;/props&gt;
+    &lt;/constructor-arg&gt;
+    &lt;constructor-arg name=&quot;size&quot; value=&quot;15&quot;&gt;&lt;/constructor-arg&gt;
+&lt;/bean&gt;
+</code></pre><p>从外部倒入配置时</p>
+<pre><code>  &lt;bean id=&quot;straightHeader&quot; class=&quot;com.netease.course.StraightHeader&quot;&gt;
+      &lt;constructor-arg name=&quot;color&quot; value=&quot;${color}&quot;&gt;&lt;/constructor-arg&gt;
+      &lt;constructor-arg name=&quot;size&quot; value=&quot;${size}&quot;&gt;&lt;/constructor-arg&gt;
+  &lt;/bean&gt;
+  &lt;bean id=&quot;headerProperties&quot; class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;&gt;
+    &lt;property name=&quot;location&quot; value=&quot;classpath:header.properties&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>在一个bean中添加所依赖的bean</p>
+<pre><code>&lt;bean id=&quot;screwDriver&quot; class=&quot;com.netease.course.ScrewDriver&quot;&gt;
+    &lt;constructor-arg&gt;
+        &lt;ref bean=&quot;straightHeader&quot; /&gt;
+    &lt;/constructor-arg&gt;
+&lt;/bean&gt;
+</code></pre><p>通过Setter方法注入依赖</p>
+<pre><code>&lt;bean id=&quot;straightHeader&quot; class=&quot;com.netease.course.StraightHeader&quot;&gt;
+    &lt;property name=&quot;color&quot; value=&quot;${color}&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;size&quot; value=&quot;${size}&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;
+</code></pre><p><strong>自动装配</strong></p>
+<p>constructor是按byType方式注入</p>
+<pre><code>&lt;bean id=&quot;screwDriver&quot; class=&quot;com.netease.course.ScrewDriver&quot; autowire=&quot;constructor&quot;&gt;
+ &lt;/bean&gt;
+</code></pre><p>或</p>
+<pre><code>&lt;bean id=&quot;screwDriver&quot; class=&quot;com.netease.course.ScrewDriver&quot; autowire=&quot;byName&quot;&gt;
+ &lt;/bean&gt;
+</code></pre><p>或</p>
+<pre><code>&lt;bean id=&quot;screwDriver&quot; class=&quot;com.netease.course.ScrewDriver&quot; autowire=&quot;byType&quot;&gt;
+ &lt;/bean&gt;
+</code></pre><p><strong>Annotation</strong></p>
+<p>@Component：定义Bean，或@Component(“name”)</p>
+<p>@Value：properties注入</p>
+<p>@Autowired &amp; @Resource：自动装配依赖</p>
+<p>@PostConstruct &amp; @PreDestroy：生命周期回调</p>
+<p>在xml中加入</p>
+<pre><code>&lt;context:component-scan base-package=&quot;com.netease.course&quot; /&gt;
+</code></pre><p><strong>//AOP技术</strong></p>
+<p>AOP术语</p>
+<p>Aspect：日志、安全等功能</p>
+<p>Join point：函数执行或者属性访问</p>
+<p>Advice：在某个函数执行点上要执行的切面功能</p>
+<p>Pointcut：匹配横切目标函数的表达式</p>
+<p>Advice类型</p>
+<p>Before：函数执行之前</p>
+<p>After returning：函数正常返回之后</p>
+<p>After throwing：函数抛出异常之后</p>
+<p>After finally：函数返回之后</p>
+<p>Around：函数执行前后</p>
+<p>Spring AOP</p>
+<p>非完整AOP实现</p>
+<p>整合AOP和与IoC</p>
+<p>XML schema-based AOP</p>
+<p>@AspectJ annotation-based AOP</p>
+<p><strong>@AspecsJ annotation-based AOP</strong></p>
+<p>aspectjweaver.jar</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-2.0.xsd&quot;&gt;
+
+    &lt;aop:aspectj-autoproxy /&gt;
+
+&lt;/beans&gt;
+</code></pre><p><strong>定义Aspect</strong></p>
+<pre><code>&lt;bean id=&quot;loggingAspect&quot; class=&quot;com.netease.course.LoggingAspect&quot;&gt;
+        &lt;!-- configure properties of aspect here as normal --&gt;
+&lt;/bean&gt;
+</code></pre><p>相应代码中类名前加入@Aspect</p>
+<p><strong>定义Pointcut</strong></p>
+<pre><code>@Pointcut(&quot;execution(* com.netease.course.Calculator.*(..))&quot;)
+
+private void arithmetic() {}
+</code></pre><p><strong>Pointcut表达式</strong></p>
+<p>designator(modifiers? return-type declaring-type? name(param) throws?)</p>
+<p>designator: execution, within</p>
+<p>modifiers: public, private</p>
+<p>return-type: 返回类型，*</p>
+<p>declaring-type: 包名，类名</p>
+<p>name: 函数名，*</p>
+<p>param: 参数列表，()无参，(..)任意参数</p>
+<p>throws: 异常类型</p>
+<p>可以组合</p>
+<p><strong>定义Advice</strong></p>
+<pre><code>@Before(&quot;com.netease.course.LoggingAspect.arithmetic()&quot;)
+
+public void doLog() {
+
+  //
+
+}
+</code></pre><p>或</p>
+<pre><code>@Before(&quot;execution(* com.netease.course.Calculator.*(..))&quot;)
+
+public void doLog() {
+
+    //
+
+}
+</code></pre><p>或</p>
+<pre><code>@AfterReturning(&quot;com.netease.course.LoggingAspect.arithmetic()&quot;)
+
+public void doLog() {
+
+    //
+
+}
+</code></pre><p>或</p>
+<pre><code>@AfterThrowing(&quot;com.netease.course.LoggingAspect.arithmetic()&quot;)
+
+public void doLog() {
+
+    //
+
+}
+</code></pre><p>或</p>
+<pre><code>@After(&quot;com.netease.course.LoggingAspect.arithmetic()&quot;)
+
+public void doLog() {
+
+    //
+
+}
+</code></pre><p><strong>Advice参数</strong></p>
+<p>函数上下文信息</p>
+<pre><code>@Before(&quot;com.netease.course.LoggingAspect.arithmetic()&quot;)
+
+public void doLog(JoinPoint jp) {
+
+    System.out.println(jp.getSignature() + &quot;, &quot; + jp.getArgs());
+
+}
+</code></pre><p> 或   </p>
+<pre><code>@Around(&quot;com.netease.course.LoggingAspect.arithmetic()&quot;)
+
+public void doLog(ProceedingJoinPoint pjp) {
+
+    System.out.println(&quot;start method: &quot; + pjp.toString());
+
+    Object retVal = pjp.proceed();
+
+    System.out.println(&quot;stop method: &quot; + pjp.toString());
+
+}
+</code></pre><p>返回值</p>
+<pre><code>@AfterReturning(pointcut=&quot;com.netease.course.LoggingAspect.arithmetic()&quot;),
+
+                returning=&quot;retVal&quot;)
+
+public void doLog(Object retVal) {
+
+    //
+
+}
+</code></pre><p>异常</p>
+<pre><code>@AfterThrowing(pointcut=&quot;com.netease.course.LoggingAspect.arithmetic()&quot;),
+
+               throwing=&quot;ex&quot;)
+
+public void doLog(IllegalArgumentException ex) {
+
+    //
+
+}
+</code></pre><p>目标函数参数</p>
+<pre><code>@Before(&quot;com.netease.course.LoggingAspect.arithmetic() &amp;&amp; args(a, ..)&quot;)
+
+public void doLog(JoinPoint jp, int a) {
+
+    //
+
+}
+</code></pre><p><strong>XML schema-based AOP</strong></p>
+<p>定义Aspect和PointCut</p>
+<pre><code>&lt;aop:config&gt;
+    &lt;aop:aspect id=&quot;loggingAspect&quot; ref=&quot;loggingBean&quot;&gt;
+        &lt;aop:pointcut id=&quot;arithmetic&quot; expression=&quot;execution(* com.netease.course.Calculator.*(..))&quot; /&gt;
+    &lt;/aop:aspect&gt;
+&lt;/aop:config&gt;
+</code></pre><p>定义Advice</p>
+<pre><code>&lt;aop:config&gt;
+    &lt;aop:aspect id=&quot;loggingAspect&quot; ref=&quot;loggingBean&quot;&gt;
+        &lt;aop:before pointcut-ref=&quot;arithmetic&quot; method=&quot;doLog&quot; /&gt;
+    &lt;/aop:aspect&gt;
+&lt;/aop:config&gt;
+</code></pre><p>或</p>
+<pre><code>&lt;aop:config&gt;
+    &lt;aop:aspect id=&quot;loggingAspect&quot; ref=&quot;loggingBean&quot;&gt;
+        &lt;aop:before pointcut=&quot;execution(* com.netease.course.Calculator.*(..))&quot; method=&quot;doLog&quot; /&gt;
+    &lt;/aop:aspect&gt;
+&lt;/aop:config&gt;
+</code></pre><p>或</p>
+<pre><code>&lt;aop:config&gt;
+    &lt;aop:aspect id=&quot;loggingAspect&quot; ref=&quot;loggingBean&quot;&gt;
+        &lt;aop:after-returning pointcut-ref=&quot;arithmetic&quot; returning=&quot;retVal&quot; method=&quot;doLog&quot; /&gt;
+    &lt;/aop:aspect&gt;
+&lt;/aop:config&gt;
+</code></pre><p>或</p>
+<pre><code>&lt;aop:config&gt;
+    &lt;aop:aspect id=&quot;loggingAspect&quot; ref=&quot;loggingBean&quot;&gt;
+        &lt;aop:after-throwing pointcut-ref=&quot;arithmetic&quot; throwing=&quot;ex&quot; method=&quot;doLog&quot; /&gt;
+    &lt;/aop:aspect&gt;
+&lt;/aop:config&gt;
+</code></pre><p>或</p>
+<pre><code>&lt;aop:aspect id=&quot;loggingAspect&quot; ref=&quot;loggingBean&quot;&gt;
+    &lt;aop:around pointcut-ref=&quot;arithmetic&quot; method=&quot;doLog&quot; /&gt;
+&lt;/aop:aspect&gt;
+</code></pre><p><strong>//数据访问</strong></p>
+<p>DAO，Data Access Object</p>
+<p>数据访问相关接口</p>
+<p>ORM，Object Relation Mapping</p>
+<p>对象关系映射</p>
+<p>DataSource (javax.sql)</p>
+<p>DriverManagerDataSource (org.springframework.jdbc.datasource)</p>
+<p>BasicDataSource (org.apache.commons.dbcp)</p>
+<pre><code>&lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
+    &lt;property name=&quot;driverClassName&quot; value=&quot;${jdbc.driverClassName}&quot; /&gt;
+    &lt;property name=&quot;url&quot; value=&quot;${jdbc.url}&quot; /&gt;
+    &lt;property name=&quot;username&quot; value=&quot;${jdbc.username}&quot; /&gt;
+    &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot; /&gt;
+&lt;/bean&gt;
+
+&lt;context:property-placeholder location=&quot;db.properties&quot; /&gt;
+</code></pre><p>JdbcTemplate (org.springframework.jdbc.core)<br>设置JdbcTemplate的数据库配置信息</p>
+<pre><code>private JdbcTemplate jdbcTemplate;
+
+@Autowired
+public void setDataSource(DataSource dataSource) {
+    this.jdbcTemplate = new JdbcTemplate(dataSource);
+}
+</code></pre><p>查询操作</p>
+<pre><code>int rowCount = this.jdbcTemplate.queryForObject(&quot;select count(*) from user&quot;, Integer.class);
+int countOfNamedJoe = this.jdbcTemplate.queryForObject(&quot;select count(*) from user where first_name = ?&quot;, Integer.class, &quot;Joe&quot;);
+String lastName = this.jdbcTemplate.queryForObject(&quot;select last_name from user where id = ?&quot;, new Object[]{1212L}, String.class);
+</code></pre><p>更改操作</p>
+<pre><code>this.jdbcTemplate.update(&quot;insert into user (first_name, last_name) values (?, ?)&quot;, &quot;Meimei&quot;, &quot;Han&quot;);
+或
+this.jdbcTemplate.execute(&quot;create table user (id integer, first_name varchar(100), last_name varchar(100))&quot;);
+</code></pre><p>对象匹配</p>
+<pre><code>User user = this.jdbcTemplate.queryForObject(&quot;select last_name from user where id = ?&quot;,
+        new Object[]{1212L},
+        new RowMapper&lt;User&gt;() {
+    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+        User user = new User();
+        user.setFirstName(rs.getString(&quot;first_name&quot;));
+        user.setLastName(rs.getString(&quot;last_name&quot;));
+        return user;
+    }
+});
+</code></pre><p>或</p>
+<pre><code>List&lt;User&gt; users = this.jdbcTemplate.query(&quot;select last_name from user where id = ?&quot;,
+        new Object[]{1212L},
+        new RowMapper&lt;User&gt;() {
+    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+        User user = new User();
+        user.setFirstName(rs.getString(&quot;first_name&quot;));
+        user.setLastName(rs.getString(&quot;last_name&quot;));
+        return user;
+    }
+});
+</code></pre><p>定义JdbcTemplate</p>
+<pre><code>public class JdbcExampleDao implements ExampleDao {
+    private JdbcTemplate jdbcTemplate;
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+    //...DAO接口实现
+}
+</code></pre><p>可以在xml中配置相应的bean<br>也可以用annotation的方法，如下：</p>
+<pre><code>@Repository
+public class JdbcExampleDao implements ExampleDao {
+    private JdbcTemplate jdbcTemplate;
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+    //...DAO接口实现
+}
+</code></pre><p>NamedParameterJdbcTemplate (org.springframework.jdbc.core)</p>
+<pre><code>private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+@Autowired
+public void setDataSource(DataSource dataSource) {
+    this.namedParameterJdbcTemplate= new NamedParameterJdbcTemplate (dataSource);
+}
+
+public int countOfUserByFirstName(String firstName) {
+    String sql = &quot;select count(*) from usertest where first_name = :first_name&quot;;
+    Map&lt;String, String&gt; namedParameters = Collections.singletonMap(&quot;first_name&quot;, firstName);
+    return this.namedParameterJdbcTemplate.queryForObject(sql, namedParameters, Integer.class);
+}
+</code></pre><p>其他api接口</p>
+<pre><code>queryForObject(String sql, Map&lt;String, ?&gt; paramMap, RowMapper&lt;T&gt; rowMapper)
+queryForObject(String sql, SqlParameterSource paramSource, Class&lt;T&gt; requiredType)
+
+SqlParameterSource: MapSqlParameterSource, BeanPropertySqlParameterSource (org.springframework.jdbc.core.namedparam)
+如：
+public int countOfUserByFirstName(User user) {
+    String sql = &quot;select count(*) from usertest where first_name = :first_name&quot;;
+    SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(user);
+    return this.namedParameterJdbcTemplate.queryForObject(sql, namedParameters, Integer.class);
+}
+</code></pre><p>异常处理</p>
+<p>DataAccessException, “unchecked”, 是一个基类 （org.springframework.dao）</p>
+<p><strong>//事务管理</strong></p>
+<p>spring事务管理</p>
+<p>统一的事务编程模型，编程式事务及声明式事务（AOP）</p>
+<pre><code>public interface PlatformTransactionManager {
+
+    TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException;
+
+    void commit(TransactionStatus status) throws TransactionException;
+
+    void rollback(TransactionStatus status) throws TransactionException;
+
+}
+</code></pre><p>事务管理器</p>
+<p>PlatformTransactionManager (org.springframework.transaction)：</p>
+<p>DataSourceTransactionManager (org.springframework.jdbc.datasource), JDBC</p>
+<p>HibernateTransactionManager (org.springframework.orm.hibernate), Hibernate</p>
+<p>TransactionDefinition</p>
+<p>getName：事务名称</p>
+<p>getIsolationLevel：隔离级别</p>
+<p>getPropagationBehavior：传播行为</p>
+<p>getTimeout：超时时间</p>
+<p>isReadOnly：是否只读</p>
+<p>TransactionStatus</p>
+<p>isNewTransaction：是否是新事务</p>
+<p>hasSavePoint：是否有savepoint（诊断，NESTED）</p>
+<p>isCompleted：是否完成</p>
+<p>isRollbackOnly：事务结果是否是rollback-only<br>setRollbackOnly：设置事务为rollback-only</p>
+<p>隔离级别</p>
+<p>ISOLATION_READ_UNCOMMITTED：读未提交</p>
+<p>ISOLATION_READ_COMMITTED：读提交</p>
+<p>ISOLATION_REPEATABLE_READ：重复读</p>
+<p>ISOLATION_SERIALIZABLE：串行化</p>
+<p>ISOLATION_DEFAULT：默认</p>
+<p>传播行为</p>
+<p>PROPAGATION_MANDATORY：必须在一个事务中运行，不存在则抛异常</p>
+<p>PROPAGATION_NEVER：不应该在事务中运行，存在则抛异常</p>
+<p>PROPAGATION_NOT_SUPPORTED：不应该在事务中运行，存在则挂起</p>
+<p>PROPAGATION_SUPPORTS：不需要事务，有则在事务中执行</p>
+<p>PROPAGATION_REQUIRED：必须在事务中执行，如果不存在，则启动新事务（内部事务会影响外部事务）</p>
+<p>PROPAGATION_NESTED：必须在事务中执行，如果不存在，则启动新事务（事务之间互不影响）</p>
+<p>PROPAGATION_REQUIRES_NEW：必须在新事务中执行，挂起当前事务（独立physical事务）</p>
+<p><strong>声明式事务</strong></p>
+<p>添加schema</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+    xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-2.0.xsd&quot;&gt;
+</code></pre><p>定义事务管理器</p>
+<pre><code>&lt;bean id=&quot;txManager&quot;
+    class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
+&lt;/bean&gt;
+&lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;
+    destroy-method=&quot;close&quot;&gt;
+    &lt;property name=&quot;driverClassName&quot; value=&quot;${jdbc.driverClassName}&quot; /&gt;
+    &lt;property name=&quot;url&quot; value=&quot;${jdbc.url}&quot; /&gt;
+    &lt;property name=&quot;username&quot; value=&quot;${jdbc.username}&quot; /&gt;
+    &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot; /&gt;
+&lt;/bean&gt;
+&lt;context:property-placeholder location=&quot;db.properties&quot; /&gt;
+</code></pre><p>定义事务Advice</p>
+<pre><code>&lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;txManager&quot;&gt;
+    &lt;tx:attributes&gt;
+        &lt;tx:method name=&quot;get*&quot; read-only=&quot;true&quot; /&gt;
+        &lt;tx:method name=&quot;*&quot; /&gt;
+    &lt;/tx:attributes&gt;
+&lt;/tx:advice&gt;
+</code></pre><p>定义Pointcut</p>
+<pre><code>&lt;aop:config&gt;
+    &lt;aop:pointcut id=&quot;daoOperation&quot;
+        expression=&quot;execution(* com.netease.course.AccountDao.*(..))&quot; /&gt;
+    &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut-ref=&quot;daoOperation&quot; /&gt;
+&lt;/aop:config&gt;
+</code></pre><p>配置<tx:method></tx:method></p>
+<p>name: 匹配的函数名称，支持*匹配<br>propagation：事务传播行为<br>isolation：事务隔离级别<br>timeout：超时<br>read-only：是否只读事务<br>rollback-for：触发回滚的异常，用逗号分隔<br>no-rollback-for：不触发回滚的异常</p>
+<p>采用annotation方法<br>@Transactional<br>xml中添加</p>
+<pre><code>&lt;tx:annotation-driven transaction-manager=&quot;txManager&quot; /&gt;
+</code></pre><p>相应代码</p>
+<pre><code>@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+public boolean deleteClusterByClusterId(Sring clusterId) {
+    // do work
+}
+</code></pre><p>@transactional<br>value：使用的TransactionManager<br>propagation：事务传播行为<br>isolation：事务隔离级别<br>timeout：超时<br>readOnly：是否只读<br>rollbackFor：触发回滚的异常类对象数组<br>rollbackForClassName：触发回滚的异常类名称数组<br>noRollbackFor：不触发回滚的异常类对象数组<br>noRollbackForClassName：不触发回滚的异常类名称数组</p>
+<p><strong>编程式事务</strong></p>
+<p>定义TransactionTemplate</p>
+<pre><code>public class SimpleService implements Service {
+    private final TransactionTemplate transactionTemplate;
+    public SimpleService(PlatformTransactionManager transactionManager) {
+        this.transactionTemplate = new TransactionTemplate(transactionManager);
+        this.transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
+        this.transactionTemplate.setTimeout(30);
+    }
+}
+</code></pre><p>使用TransactionTemplate</p>
+<pre><code>public Object someMethod() {
+    return transactionTemplate.execute(new TransactionCallback() {
+        public Object doInTransaction(TransactionStatus status) {
+            updateOperation1();
+            return resultOfUpdateOperation2();
+        }
+    });
+}
+</code></pre><p>或（不返回结果）</p>
+<pre><code>public Object someMethodWithoutResult() {
+    return transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+        protected void doInTransactionWithoutResult(TransactionStatus status) {
+            updateOperation1();
+            updateOperation2();
+        }
+    });
+}
+</code></pre><p>或（设置为遇到异常时只能回滚）</p>
+<pre><code>public Object someMethodWithoutResult() {
+    return transactionTemplate
+            .execute(new TransactionCallbackWithoutResult() {
+                protected void doInTransactionWithoutResult(
+                        TransactionStatus status) {
+                    try {
+                        updateOperation1();
+                        updateOperation2();
+                    } catch (SomeBusinessException e) {
+                        status.setRollbackOnly();
+                    }
+                }
+            });
+}
+</code></pre><p>PlatformTransactionManager的实现</p>
+<pre><code>DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+def.setName(&quot;TxName&quot;);
+def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+TransactionStatus status = txManager.getTransaction(def);
+try {
+    //do something
+} catch (MyException ex) {
+    txManager.rollback(status);
+    throw ex;
+}
+txManager.commit(status);
+</code></pre><p><strong>整合MyBatis</strong></p>
+<p>SqlSessionFactory<br>添加mybatis-spring依赖</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+    &lt;version&gt;1.2.3&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+    &lt;version&gt;3.3.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>定义SqlSessionFactoryBean</p>
+<pre><code>&lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
+    &lt;property name=&quot;configLocation&quot; value=&quot;classpath:sqlMapConfig.xml&quot; /&gt;
+    &lt;property name=&quot;mapperLocations&quot; value=&quot;classpath*:sample/config/mappers/**/*.xml&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>定义Mapper</p>
+<pre><code>public interface UserMapper {
+
+    @Select(&quot;SELECT * FROM users WHERE id = #{userId}&quot;)
+    User getUser(@Param(&quot;userId&quot;) String userId);
+}
+</code></pre><p>配置结果映射</p>
+<pre><code>@Results({
+    @Result(property=&quot;id&quot;, column=&quot;id&quot;),
+    @Result(property=&quot;firstName&quot;, column=&quot;first_name&quot;),
+    @Result(property=&quot;lastName&quot;, column=&quot;last_name&quot;)
+})
+</code></pre><p>或者采用xml的方法，见Mybatis部分</p>
+<p>定义Mapper Bean</p>
+<pre><code>&lt;bean id=&quot;userMapper&quot; class=&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;&gt;
+    &lt;property name=&quot;mapperInterface&quot; value=&quot;com.netease.course.UserMapper&quot; /&gt;
+    &lt;property name=&quot;sqlSessionFactory&quot; ref=&quot;sqlSessionFactory&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>或采用自动发现的机制</p>
+<pre><code>&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xmlns:mybatis=&quot;http://mybatis.org/schema/mybatis-spring&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://mybatis.org/schema/mybatis-spring
+    http://mybatis.org/schema/mybatis-spring.xsd&quot;&gt;
+
+    &lt;mybatis:scan base-package=&quot;com.netease.course&quot; /&gt;
+&lt;/beans&gt;
+</code></pre><p>当需要指定SqlSessionFactory时</p>
+<pre><code>&lt;mybatis:scan base-package=&quot;com.netease.course&quot; factory-ref=&quot;sqlSessionFactory&quot; /&gt;
+</code></pre><p>或者</p>
+<pre><code>&lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;
+    &lt;property name=&quot;basePackage&quot; value=&quot;com.netease.course&quot; /&gt;
+    &lt;property name=&quot;sqlSessionFactoryBeanName&quot; value=&quot;sqlSessionFactory&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>使用Mapper</p>
+<pre><code>public class SomeService {
+    @Autowired
+    private UserMapper userMapper;
+    public User getUser(String userId) {
+        return userMapper.getUser(userId);
+    }
+}
+</code></pre><p>定义SqlSessionTemplate使用</p>
+<pre><code>&lt;bean id=&quot;sqlSession&quot; class=&quot;org.mybatis.spring.SqlSessionTemplate&quot;&gt;
+    &lt;constructor-arg index=&quot;0&quot; ref=&quot;sqlSessionFactory&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>SqlSessionTemplate使用</p>
+<pre><code>public class UserDao {
+    @Autowired
+    private SqlSession sqlSession;
+    public User getUser(String userId) {
+        return (User) sqlSession.selectOne(&quot;com.netease.course.UserMapper.getUser&quot;, userId);
+    }
+}
+</code></pre><p><strong>//Web框架</strong></p>
+<p>DispatcherServlet</p>
+<p>[servlet-name]-servlet.xml<br>HandlerMapping<br>Controllers<br>View解析相关</p>
+<p>WebApplicationContext</p>
+<p>ContextLoaderListener</p>
+<pre><code>&lt;listener&gt;
+    &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;
+&lt;/listener&gt;
+&lt;context-param&gt;
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+    &lt;param-value&gt;/WEB-INF/applicationContext*.xml&lt;/param-value&gt;
+&lt;/context-param&gt;
+</code></pre><p>Servlet WebApplicationContext (containing controllers, view resolvers, and other web-related beans)<br>Root WebAppliacationContext (containing middler-tier services, datasources, etc.)</p>
+<p><strong>实现Controller</strong></p>
+<pre><code>@Controller
+@RequestMapping(value = &quot;/hello&quot;)
+public class HelloController {
+    @RequestMapping(value = &quot;/spring&quot;)
+    public void spring(HttpServletResponse response) throws IOException {
+        response.getWriter().write(&quot;Hello, Spring Web!!&quot;);
+    }
+}
+</code></pre><p><strong>定义Controller</strong></p>
+<p>自动发现</p>
+<pre><code>&lt;context:component-scan base-package=&quot;com.netease.course&quot; /&gt;
+</code></pre><p>@RequestMapping<br>name: 名称<br>value &amp; path: 路径，如”/hello”<br>method: 请求方法，如”GET”<br>params: 请求参数<br>headers: 请求头<br>consumes: 请求的媒体类型，”Content-Type”<br>produces: 响应的媒体类型，”ACCEPT”</p>
+<p>注入路径中的变量</p>
+<pre><code>@RequestMapping(value=&quot;/users/{userId}&quot;)
+public String webMethod(@PathVariable String userId) {
+    //do work
+}
+</code></pre><p>或</p>
+<pre><code>@RequestMapping(value=&quot;/users/{userId:[a-z]+}&quot;)
+public String webMethod(@PathVariable String userId) {
+    //do work
+}
+</code></pre><p>函数参数<br>HttpServletRequest / HttpServletResponse, HttpSession (Servlet API)<br>Reader / Writer<br>@PathVariable<br>@RequestParam<br>@RequestHeader<br>HttpEntity<br>@RequestBody<br>Map / Model / ModelMap</p>
+<p>函数返回值<br>void<br>String: view名称，@ResponseBody<br>HttpEntity<br>View<br>Map<br>Model<br>ModelAndView</p>
+<p><strong>函数实现</strong></p>
+<pre><code>@RequestMapping(value=&quot;/spring/{user}&quot;)
+
+public void helloSpring(
+
+        @PathVariable(&quot;user&quot;) String user,
+
+        @RequestParam(&quot;msg&quot;) String msg,
+
+        @RequestHeader(&quot;host&quot;) String host,
+
+        HttpServletRequest request,
+
+        Writer writer) throws IOException {
+
+    writer.write(&quot;URI: &quot; + request.getRequestURI());
+
+    writer.write(&quot;Hello, &quot; + user + &quot;: &quot; + msg + &quot;, host=&quot; + host);
+
+}
+</code></pre><p>或</p>
+<pre><code>@RequestMapping(value=&quot;/spring/login&quot;)
+
+public void login(@ModelAttribute User user, Writer writer) {
+
+    //do work
+
+}
+</code></pre><p>或</p>
+<pre><code>@RequestMapping(value=&quot;/users/login&quot;)
+
+public String login(@RequestParam(&quot;name&quot;) String name, @RequestParam(&quot;password&quot;) String password, ModelMap map) {
+
+    map.addAttribute(&quot;name&quot;, name);
+
+    map.addAttribute(&quot;password&quot;, &quot;******&quot;);
+
+    return &quot;user&quot;;
+
+}
+</code></pre><p><strong>ModelMap</strong><br>ModelMap的实例是由bboss mvc框架自动创建并作为控制器方法参数传入，用户无需自己创建。</p>
+<pre><code>public String xxxxmethod(String someparam,ModelMap model)   
+{   
+     //省略方法处理逻辑若干   
+      //将数据放置到ModelMap对象model中,第二个参数可以是任何java类型   
+      model.addAttribute(&quot;key&quot;,someparam);   
+     ......   
+     //返回跳转地址   
+      return &quot;path:handleok&quot;;   
+}  
+</code></pre><p><strong>ModelAndView</strong><br>ModelAndView的实例是由用户手动创建的，这也是和ModelMap的一个区别。</p>
+<pre><code>public ModelAndView xxxxmethod(String someparam)   
+{   
+     //省略方法处理逻辑若干   
+      //构建ModelAndView实例，并设置跳转地址   
+      ModelAndView view = new ModelAndView(&quot;path:handleok&quot;);   
+      //将数据放置到ModelAndView对象view中,第二个参数可以是任何java类型   
+      view.addObject(&quot;key&quot;,someparam);   
+     ......   
+     //返回ModelAndView对象view   
+      return view;   
+}  
+</code></pre><p>上传文件</p>
+<p>定义bean</p>
+<pre><code>&lt;bean id=&quot;multipartResolver&quot;
+    class=&quot;org.springframework.web.multipart.commons.CommonsMultipartResolver&quot;&gt;
+    &lt;property name=&quot;maxUploadSize&quot; value=&quot;100000&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>相应代码</p>
+<pre><code>@RequestMapping(value=&quot;/form&quot;, method=RequestMethod.POST)
+public String handleFormUpload(@RequestParam(&quot;file&quot;) MultipartFile file) {
+    // save the file
+}
+</code></pre><p>相应依赖</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;
+  &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;
+  &lt;version&gt;1.3.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>HttpEntity</p>
+<pre><code>@RequestMapping(value=&quot;/something&quot;)
+public ResponseEntity&lt;String&gt; handle(HttpEntity&lt;byte[]&gt; requestEntity) {
+    String requestHeader = requestEntity.getHeaders().getFirst(&quot;MyRequestHeader&quot;);
+    byte[] requestBody = requestEntity.getBody();
+    // do something with requestHeader and requestBody
+    HttpHeaders responseHeaders = new HttpHeaders();
+    responseHeaders.set(&quot;MyResponseHeader&quot;, &quot;MyValue&quot;);
+    return new ResponseEntity&lt;String&gt;(&quot;hello spring&quot;, responseHeaders, HttpStatus.CREATED);
+}
+</code></pre><p>@RequestBody &amp; @ResponseBody</p>
+<pre><code>@RequestMapping(value=&quot;/spring&quot;)
+@ResponseBody
+public String spring(@RequestBody String body) throws IOException {
+    return &quot;hello&quot; + body;
+}
+</code></pre><p>MessageConverter，返回Java对象的转化<br>RequestBody —&gt; Object: 参数<br>ResponseBody &lt;— Object: 返回值</p>
+<p>xml文件配置</p>
+<pre><code>&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+    xmlns:mvc=“http://www.springframework.org/schema/mvc”
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+    &lt;context:component-scan base-package=&quot;com.netease.course&quot; /&gt;
+    &lt;mvc:annotation-driven /&gt;
+&lt;/beans&gt;
+</code></pre><p>添加相应依赖，如JSON相关依赖</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+    &lt;version&gt;2.6.4&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+    &lt;version&gt;2.6.4&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p><strong>View解析</strong></p>
+<p>String      名称</p>
+<p>View</p>
+<p>ModelAndView</p>
+<p>Map</p>
+<p>Model</p>
+<p><strong>ViewResolver (org.springframework.web.servlet)：</strong></p>
+<p>InternalResourceViewResolver (org.springframework.web.servlet.view)<br>FreeMarkerViewResolver (org.springframework.web.servlet.view.freemarker)<br>ContentNegotiatingViewResolver (org.springframework.web.servlet.view)</p>
+<p>InternalResourceViewResovler<br>Servlet, JSP<br>bean定义</p>
+<pre><code>&lt;bean id=&quot;viewResolver&quot;
+    class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+    &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;
+    &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>resultView ——-&gt; /WEB-INF/jsp/resultView.jsp</p>
+<p>FreeMarkerViewResolver<br>FreeMarker<br>bean定义</p>
+<pre><code>&lt;bean id=&quot;freemarkerConfig&quot;
+    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer&quot;&gt;
+    &lt;property name=&quot;templateLoaderPath&quot; value=&quot;/WEB-INF/freemarker/&quot; /&gt;
+&lt;/bean&gt;
+&lt;bean id=&quot;viewResolver&quot;
+    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver&quot;&gt;
+    &lt;property name=&quot;cache&quot; value=&quot;true&quot; /&gt;
+    &lt;property name=&quot;prefix&quot; value=&quot;&quot; /&gt;
+    &lt;property name=&quot;suffix&quot; value=&quot;.ftl&quot; /&gt;
+    &lt;property name=&quot;contentType&quot; value=&quot;text/html; charset=utf-8&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>ContentNegotiatingViewResolver<br>ViewResovler的组合<br>扩展名：user.json, user.xml, user.pdf<br>Accept头（media types)：application / json, application / xml<br>bean定义</p>
+<pre><code>&lt;bean
+    class=&quot;org.springframework.web.servlet.view.ContentNegotiatingViewResolver&quot;&gt;
+    &lt;property name=&quot;viewResolvers&quot;&gt;
+        &lt;list&gt;
+            &lt;bean id=&quot;viewResolver&quot;
+                class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver&quot;&gt;
+                &lt;property name=&quot;cache&quot; value=&quot;true&quot; /&gt;
+                &lt;property name=&quot;prefix&quot; value=&quot;&quot; /&gt;
+                &lt;property name=&quot;suffix&quot; value=&quot;.ftl&quot; /&gt;
+            &lt;/bean&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+    &lt;property name=&quot;defaultViews&quot;&gt;
+        &lt;list&gt;
+            &lt;bean
+                class=&quot;org.springframework.web.servlet.view.json.MappingJackson2JsonView&quot; /&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre><p>DefaultRequestToViewNameTranslator<br>example/admin/index.html ———&gt; admin/index<br>example/display.html ——-&gt; display</p>
+<p><strong>ContentNegotiatingViewResolver 根据路径后缀，选择不同视图</strong></p>
+<p>方法一：使用扩展名</p>
+<p><a href="http://localhost:8080/learn/user.xml" target="_blank" rel="external">http://localhost:8080/learn/user.xml</a> 获取xml类型数据</p>
+<p><a href="http://localhost:8080/learn/user.json" target="_blank" rel="external">http://localhost:8080/learn/user.json</a>  获取json类型数据</p>
+<p><a href="http://localhost:8080/learn/user" target="_blank" rel="external">http://localhost:8080/learn/user</a>  使用默认view呈现，如jsp</p>
+<p>方法二：使用http 请求头的Accept</p>
+<p>GET /user HTTP/1.1</p>
+<p>Accept:application/xml</p>
+<p>GET /user HTTP/1.1</p>
+<p>Accept:application/json</p>
+<p>方法三：使用参数</p>
+<p><a href="http://localhost:8080/learn/user?format=xml" target="_blank" rel="external">http://localhost:8080/learn/user?format=xml</a></p>
+<p><a href="http://localhost:8080/learn/user?format=json" target="_blank" rel="external">http://localhost:8080/learn/user?format=json</a></p>
+<p>  同一资源，多种表述 </p>
+<pre><code>&lt;bean id=&quot;contentNegotiationManager&quot; class=&quot;org.springframework.web.accept.ContentNegotiationManagerFactoryBean&quot;&gt;  
+    &lt;!-- 是否启用扩展名支持，默认为true --&gt;  
+    &lt;property name=&quot;favorPathExtenion&quot; value=&quot;true&quot; /&gt;  
+    &lt;!-- 是否启用参数支持，默认为true --&gt;  
+    &lt;property name=&quot;favorParameter&quot; value=&quot;false&quot; /&gt;  
+    &lt;!-- 是否忽略掉accept header,默认为false --&gt;  
+    &lt;property name=&quot;ignoreAcceptHeader&quot; value=&quot;true&quot; /&gt;  
+
+    &lt;!-- 扩展名到mimeType的映射 --&gt;  
+    &lt;property name=&quot;mediaTypes&quot;&gt;  
+        &lt;map&gt;  
+            &lt;!-- 例如：/user.json 中的 .json 会映射到 application/json --&gt;  
+            &lt;entry key=&quot;json&quot; value=&quot;application/json&quot; /&gt;  
+            &lt;entry key=&quot;xml&quot; value=&quot;application/xml&quot; /&gt;          
+        &lt;/map&gt;  
+    &lt;/property&gt;  
+
+    &lt;!-- 如果所有mediaType都没匹配上，就使用defaultContentType --&gt;  
+    &lt;property name=&quot;defaultContentType&quot; value=&quot;text/html&quot;/&gt;  
+&lt;/bean&gt;  
+
+&lt;bean class=&quot;org.springframework.web.servlet.view.ContentNegotiatingViewResolver&quot;&gt;  
+    &lt;!-- 解析器的执行顺序 --&gt;  
+    &lt;property name=&quot;order&quot; value=&quot;1&quot; /&gt;  
+    &lt;property name=&quot;contentNegotiationManager&quot; ref=&quot;contentNegotiationManager&quot; /&gt;  
+
+    &lt;property name=&quot;defaultViews&quot;&gt;  
+        &lt;list&gt;  
+            &lt;bean class=&quot;org.springframework.web.servlet.view.json.MappingJackson2JsonView&quot;&gt;&lt;/bean&gt;  
+            &lt;bean class=&quot;org.springframework.web.servlet.view.xml.MarshallingView&quot;&gt;  
+                &lt;constructor-arg&gt;  
+                    &lt;bean class=&quot;org.springframework.oxm.jaxb.Jaxb2Marshaller&quot;&gt;  
+                        &lt;property name=&quot;classesToBeBound&quot;&gt;  
+                            &lt;list&gt;  
+                                &lt;value&gt;com.learn.model.User&lt;/value&gt;  
+                            &lt;/list&gt;  
+                        &lt;/property&gt;  
+                    &lt;/bean&gt;  
+                &lt;/constructor-arg&gt;  
+            &lt;/bean&gt;  
+        &lt;/list&gt;  
+    &lt;/property&gt;  
+
+&lt;/bean&gt;  
+&lt;!-- 上面没匹配到则会使用这个视图解析器 ,解析为jsp  --&gt;  
+&lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;  
+    &lt;property name=&quot;order&quot; value=&quot;2&quot; /&gt;  
+    &lt;property name=&quot;prefix&quot; value=&quot;/&quot; /&gt;   
+    &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;  
+&lt;/bean&gt;  
+</code></pre><p>Controller中可以用RequestMapping匹配多个路径后缀</p>
+<pre><code>@RequestMapping(value = {&quot;/users&quot;, &quot;/users.html&quot;, &quot;/users.json&quot;})
+
+public String getUsersInfo(ModelMap map) {
+
+    List users = userServiceImp.getUsers();
+
+    map.addAttribute(&quot;users&quot;, users);
+
+    return &quot;users&quot;;
+
+}
+</code></pre><p><strong>FreeMarker</strong></p>
+<p>模板引擎</p>
+<p>数据模型</p>
+<p>对象：hashes</p>
+<p>基本类型：scalars</p>
+<p>注释</p>
+<p>&lt;#– 这是注释 –&gt;</p>
+<p>插值：表达式</p>
+<p>${animal.name}</p>
+<p>直接指定值：</p>
+<pre><code>字符串，如“Zoo”, &apos;Zoo&apos;
+
+数字，如123.45
+
+布尔值，如true，false
+
+序列，如[&quot;zoo&quot;, &quot;bar&quot;, 123]
+
+值域，如0..9，0..&lt;10
+
+哈希表，如{&quot;name&quot;:&quot;green mouse&quot;, &quot;price&quot;:150}
+</code></pre><p>检索变量：</p>
+<pre><code>顶层变量：user
+
+哈希表数据：user.name, user[&quot;name&quot;]
+
+列表数据：products[5]
+</code></pre><p>连接操作：</p>
+<pre><code>users + &quot;guest&quot;
+
+passwords + &quot;joe&quot;:&quot;secret123&quot;
+</code></pre><p>算术操作</p>
+<p>逻辑操作</p>
+<p>比较操作</p>
+<p>FTL标签：指令</p>
+<p>开始标签：&lt;#directivename parameters&gt;</p>
+<p>结束标签：</p>
+<p>if指令</p>
+<pre><code>&lt;#if user==&quot;Big Joe&quot;&gt;, our beloved leader
+</code></pre><p>list指令</p>
+<pre><code>&lt;#list animals as animal&gt;
+
+  ${animal.name}${animal.price} Euros
+</code></pre><p>include指令</p>
+<pre><code>&lt;#include &quot;/copyright_footer.html&quot;&gt;
+</code></pre><p>使用</p>
+<p>创建配置</p>
+<pre><code>Configuration cfg = new Configuration(Configuration.VERSION_2_3_0);
+
+cfg.setDirectoryForTemplateLoading(new File(&quot;/where/you/store/templates&quot;));
+
+cfg.setDefaultEncoding(&quot;UTF-8&quot;);
+
+cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+</code></pre><p>定义模板</p>
+<p>定义数据模型</p>
+<p>如</p>
+<pre><code>Map root = new HashMap&lt;&gt;();
+
+root.put(&quot;user&quot;, &quot;Big Joe&quot;);
+
+Map latestProduct = new HashMap&lt;&gt;();
+
+root.put(&quot;latestProduct&quot;, latestProduct);
+
+latestProduct.put(&quot;url&quot;, &quot;products/greenmouse.html&quot;);
+
+latestProduct.put(&quot;name&quot;, &quot;greenmouse&quot;);
+</code></pre><p>添加依赖</p>
+<pre><code>&lt;dependency&gt;
+
+    &lt;groupId&gt;org.freemarkergroupId&gt;
+
+    &lt;artifactId&gt;freemarkerartifactId&gt;
+
+    &lt;version&gt;2.3.23version&gt;
+
+dependency&gt;
+</code></pre><p>输出结果</p>
+<pre><code>Template ftl = cfg.getTemplate(&quot;user.ftl&quot;);
+
+Writer outWriter = new OutputStreamWriter(System.out);
+
+ftl.process(root, outWriter);
+</code></pre><p><strong>工程模板</strong></p>
+<p>一般java目录</p>
+<p>com.netease.course.dao</p>
+<p>com.netease.course.meta</p>
+<p>com.netease.course.service</p>
+<p>com.netease.course.service.impl</p>
+<p>com.netease.course.utils</p>
+<p>com.netease.course.web.controller</p>
+<p>com.netease.course.web.filter</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/13/学习笔记-Servlet技术/" rel="next" title="学习笔记--Servlet技术">
+                <i class="fa fa-chevron-left"></i> 学习笔记--Servlet技术
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/13/学习笔记-数据库开发/" rel="prev" title="学习笔记--数据库开发">
+                学习笔记--数据库开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://b-ssl.duitang.com/uploads/item/201602/18/20160218194039_c2Kmt.jpeg"
+               alt="KioLuo" />
+          <p class="site-author-name" itemprop="name">KioLuo</p>
+           
+              <p class="site-description motion-element" itemprop="description">gogogo~</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KioLuo</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

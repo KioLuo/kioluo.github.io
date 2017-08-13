@@ -1,0 +1,826 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="//输入输出 Scanner in = new Scanner(System.in); int a = in.nextInt(); int b = in.next(); System.out.println(in.nextLine()); //输入流 InputStream System.in.read(buffer);        //读取输入流存到buffer（byte[]类型）中 Syst">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习笔记--Java">
+<meta property="og:url" content="http://yoursite.com/2017/08/13/学习笔记-Java/index.html">
+<meta property="og:site_name" content="KioLuo">
+<meta property="og:description" content="//输入输出 Scanner in = new Scanner(System.in); int a = in.nextInt(); int b = in.next(); System.out.println(in.nextLine()); //输入流 InputStream System.in.read(buffer);        //读取输入流存到buffer（byte[]类型）中 Syst">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-13T11:07:51.760Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习笔记--Java">
+<meta name="twitter:description" content="//输入输出 Scanner in = new Scanner(System.in); int a = in.nextInt(); int b = in.next(); System.out.println(in.nextLine()); //输入流 InputStream System.in.read(buffer);        //读取输入流存到buffer（byte[]类型）中 Syst">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/13/学习笔记-Java/"/>
+
+
+
+
+
+  <title> 学习笔记--Java | KioLuo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KioLuo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">hahaha~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/13/学习笔记-Java/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KioLuo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://b-ssl.duitang.com/uploads/item/201602/18/20160218194039_c2Kmt.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KioLuo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                学习笔记--Java
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-13T19:04:07+08:00">
+                2017-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>//输入输出</strong></p>
+<p>Scanner in = new Scanner(System.in);</p>
+<p>int a = in.nextInt();</p>
+<p>int b = in.next();</p>
+<p>System.out.println(in.nextLine());</p>
+<p><strong>//输入流 InputStream</strong></p>
+<p>System.in.read(buffer);        //读取输入流存到buffer（byte[]类型）中</p>
+<p>System.in.read();        //读一个字节，若结尾返回-1</p>
+<p>System.in.read(buffer, int off, int len);        //    读len个字节，从buffer[off]开始存</p>
+<p>System.in.skip(n);        //输入流跳过n个字节</p>
+<p>System.in.available();</p>
+<p>System.in.mark();        //标记</p>
+<p>System.in.reset();        //返回标记处</p>
+<p>System.in.markSupported;        //是否支持标记</p>
+<p>System.in.close();        //关闭输入流</p>
+<p> //类java.io.StreamTokenizer可以获取输入流并将其分析为Token(标记)。StreamTokenizer的nextToken方法将读取下一个标记,下一个标记的类型在ttype字段中返回。关于令牌的附加信息可能是在nval字段或标记生成器的sval 字段，结束标志为TT_EOF。</p>
+<p>StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in))); </p>
+<p>st.nextToken();</p>
+<p>int m=(int)st.nval;</p>
+<p><strong>//输出流 OutputStream</strong></p>
+<p>System.out.write(int b);</p>
+<p>System.out.write(byte[] b);</p>
+<p>System.out.write(byte[] b, int off, int len);</p>
+<p>System.out.flush();</p>
+<p>System.out.close();</p>
+<p><strong>//文件流</strong></p>
+<p><strong>//二进制数据读写（字节流）</strong></p>
+<p>FileOutputStream out = new FileOutputStream(“a.txt”);        //根据字节读写数据</p>
+<p>out.write(buffer);</p>
+<p>out.close(); </p>
+<p>FileInputStream in = new FileInputStream(“a.txt”);</p>
+<p>in.read();</p>
+<p>in.close();</p>
+<p>DataOutputStream out = new DataOutputStream(</p>
+<pre><code>new BufferedOutputStream(
+
+    new FileOutputStream(&quot;a.txt&quot;)));        //读写基本类型数据
+</code></pre><p>out.writeInt(int a);</p>
+<p>DataInputStream in = new DataInputStream(</p>
+<pre><code>new BufferedInputStream(
+
+      new FileInputStream(&quot;a.txt&quot;)));
+</code></pre><p>in.readInt();</p>
+<p><strong>//文本数据读写（字符流）</strong></p>
+<p>PrintWriter out = new PrintWriter(</p>
+<pre><code>new BufferedWriter(
+
+          new OutputStreamWriter(
+
+                   new FileOutputStream(&quot;a.txt&quot;))));        //输出文本数据
+</code></pre><p>out.println(“abcdefg”);</p>
+<p>out.format(“格式”,…);</p>
+<p>out.printf(“格式”, …);</p>
+<p>out.print(基本类型);</p>
+<p>BufferedReader in = new BufferedReader(</p>
+<pre><code>new InputStreamReader(
+
+      new FileInputStream(&quot;a.txt&quot;)));                   //读文本数据         
+</code></pre><p>String line = in.readLine();</p>
+<p>in.getLineNumber();</p>
+<p>FileReader in = new FileReader(String fileName);        //在给定从中读取数据的文件名的情况下新建FileReader</p>
+<p>FileReader in = new FileReader(File file);             //在给定从中读取数据的File的情况下新建FileReader</p>
+<p><strong>//转换编码</strong></p>
+<p>InputStreamReader(InputStream in, String charsetName);        //创建使用指定字符集的InputStreamReader</p>
+<p><strong>//网络端口连接读写数据</strong></p>
+<p>Socket  socket = new Socket(InetAddress.getByName(“localhost”), 12345);        //建立与本地12345端口的连接</p>
+<p>PrintWriter out = new PrintWriter(</p>
+<pre><code>new BufferedWriter(
+
+     new OutputStreamWriter(
+
+           socket.getOutputStream())));                            //建立对socket的输出流
+</code></pre><p><strong>//读写对象</strong></p>
+<p>class Student implements Serializable {</p>
+<p>…</p>
+<p>}                                                                                           //类实现Serializable串行化接口</p>
+<p>ObjectOutputStream out = new ObjectOutputStream(</p>
+<pre><code>new FileOutputStream(&quot;a.dat&quot;));                        //对象输出流
+</code></pre><p>out.writeObject(Student stu1);</p>
+<p>ObjectInputStream in = new ObjectInputStream(</p>
+<pre><code>new FileInputStream(&quot;a.dat&quot;);                            //对象输入流
+</code></pre><p>out.readObject(Student stu2);</p>
+<p><strong>//字符串操作</strong></p>
+<p>String s = new String();</p>
+<p>s.equals(“abc”);</p>
+<p>s1.compareTo(s2);</p>
+<p>s.substring(n);</p>
+<p>s.substring(n1, n2);</p>
+<p>s.charAt(index);</p>
+<p>s.indexOf(c);</p>
+<p>s.indexOf(c, n);</p>
+<p>s.indexOf(t);        //也可以寻找字符串位置</p>
+<p>s.lastIndexOf(c);        //从右边开始找</p>
+<p>s.startsWith(t);        //是否由字符串t开始</p>
+<p>s.endsWith(t);        //是否由字符串t结尾</p>
+<p>s.trim();        //把字符串两端的空格删掉</p>
+<p>s.replace(c1, c2);        //把s中所有的c1都换成c2</p>
+<p>s.toLowerCase();        //把s中所有的大写字母换成小写字母</p>
+<p>s.toUpperCase();        //把s中所有的小写字母换成大写字母</p>
+<p>s.split(“ “);        //按某个字符（比如空格）将字符串提取出来</p>
+<p>StringBuffer sb = new StringBuffer();        //用作字符串缓存器</p>
+<p>StringBuilder sb = new StringBuilder();      //与StringBuffer相似，没有实现线程安全功能</p>
+<p>sb.append(“”);        //增加一个字符串</p>
+<p>sb.insert(n, “”);      //插入字符串</p>
+<p>sb.toString();        //转换成字符串</p>
+<p>String.format(“Hello, %s. Next year, you’ll be %d”, name, age);            //格式化字符串</p>
+<p><strong>//Java中的包装类</strong></p>
+<p>Integer类的常用方法：</p>
+<p>byteValue()        //将Integer转换为byte类型</p>
+<p>doubleValue()       //将Integer转换为double类型</p>
+<p>…</p>
+<p>基本类型转换为字符串：</p>
+<p>Integer.toString(int n)        //转换为字符串类型</p>
+<p>String.valueOf(int n)           //int类型转换为字符串类型</p>
+<p>字符串转换为基本类型：</p>
+<p>Integer.parseInt(Stirng s)    //将字符串转换为int类型</p>
+<p>Integer.valueOf(String s)             //将字符串转换为Integer类型</p>
+<p><strong>//时间类</strong></p>
+<p>Date d = new Date();              //java.util包中，默认无参构建当前时间</p>
+<p>SimpleDateFormat sdf = new SimpleDateFormat(“yyyy-MM-dd HH:mm:ss”);             //java.text包中，创建目标格式对象</p>
+<p>String today = sdf.format(d);            //将时间格式化为指定格式</p>
+<p>Date date = sdf.parse(today);        //将字符串按指定格式转化为时间</p>
+<hr>
+<p>Calendar c = Calendar.getInstance();                    //java.util.Calendar，创建Calendar对象，初始化为当前时间</p>
+<p>int year = c.get(Calendar.YEAR);</p>
+<p>int month = c.get(Calendar.MONTH)+1;              //0表示1月份</p>
+<p>int day = c.get(Calendar.DAY_OF_MONTH);</p>
+<p>int hour = c.get(Calendar.HOUR_OF_DAY);</p>
+<p>int minute = c.get(Calendar.MINUTE);</p>
+<p>int second = c.get(Calendar.SECOND);</p>
+<p>Date date = c.getTime();           //Date和Calendar类互转</p>
+<p>Long time = c.getTimeInMillis();              //获取当前毫秒数</p>
+<p><strong>//数学函数</strong></p>
+<p>Math.abs(a);        // java.lang包，求绝对值</p>
+<p>Math.pow(a);        //指数运算</p>
+<p>Math.random();        //产生从0到1间的随机数</p>
+<p>Math.round(a);        //求近似</p>
+<p>Math.floor();           //返回小于参数的最大整数</p>
+<p>Math.ceil();           //返回大于参数的最小整数</p>
+<p><strong>//集合</strong></p>
+<p><strong>//容器类</strong></p>
+<p>Collection接口，子接口有Set，List，Queue，实现类有ArrayList, LinkedList, HashSet</p>
+<p>Map接口，实现类有HashMap</p>
+<hr>
+<p>ArrayList list = new ArrayList();        //定义ArrayList容器，ArrayList是List接口的一个实现类，List是Collection的子接口</p>
+<p>list.add(s);        //增加元素</p>
+<p>list.add(n, s);   //在位置n上插入元素</p>
+<p>list.addAll(Array.asList(array));         //将数组转换为list并添加到list中</p>
+<p>list.addAll(n, Array.asList(array));        //插入到指定位置</p>
+<p>list.remove(s);   //删除指定元素或指定位置元素</p>
+<p>list.removeAll(Array.asList(array));        //删除list中指定的元素集合</p>
+<p>list.set(n, s);      //修改n位置的元素为s</p>
+<p>list.size();          //返回大小</p>
+<p>Iterator it = list.iterator();           //获取list的迭代器</p>
+<p>it.hasNext();         //判断迭代器是否有下一个元素</p>
+<p>it.Next();            //利用迭代器获取下一个元素</p>
+<p><strong>//HashMap散列表</strong></p>
+<p>HashMap coinnames = new HashMap();</p>
+<p>coinnames.put(1, “penny”);        //放进键值对</p>
+<p>coinnames.get(1);        //返回键1对应的值</p>
+<p>coinnames.containsKey(1);        //是否包含某键</p>
+<p>coinnames.keySet();        //返回键的集合</p>
+<p><strong>//图形界面包</strong></p>
+<p>import javax.swing.JFrame;        //图形窗口</p>
+<p>import javax.swing.JPanel;        //图形面板</p>
+<p>import javax.swing.JButton;        //图形按钮</p>
+<p>import java.awt.Color;        //颜色设置</p>
+<p>import java.awt.Graphics;        //绘制图像</p>
+<p>import java.awt.BorderLayout;        //组件布局管理</p>
+<p>import java.awt.event.ActionEvent;        //事件处理</p>
+<p>import java.awt.event.ActionListener;        //事件监听</p>
+<p>import javax.swing.JScrollPane;        //滚动面板</p>
+<p>import javax.swing.JTable;        //图形表格</p>
+<p>import javax.swing.table.TableModel;        //表格的数据模型接口</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/13/学习笔记-Git/" rel="next" title="学习笔记--Git">
+                <i class="fa fa-chevron-left"></i> 学习笔记--Git
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/13/学习笔记-JavaScript/" rel="prev" title="学习笔记--JavaScript">
+                学习笔记--JavaScript <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://b-ssl.duitang.com/uploads/item/201602/18/20160218194039_c2Kmt.jpeg"
+               alt="KioLuo" />
+          <p class="site-author-name" itemprop="name">KioLuo</p>
+           
+              <p class="site-description motion-element" itemprop="description">gogogo~</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KioLuo</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

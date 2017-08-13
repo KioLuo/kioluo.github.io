@@ -1,0 +1,2265 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="第一章–流与文件———————————————- 流 读写字节 java.io.InputStream 1.0  abstract  int read()  //从数据中读入一个字节，并返回该字节，在碰到流的结尾时返回-1 int read(byte[] b)  //读入一个字节数组，并返回实际读入的字节数，或者在碰到流的结尾时返回-1 int read(byte[] b,  int off,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读书笔记--Java核心技术--高级特征">
+<meta property="og:url" content="http://yoursite.com/2017/08/13/读书笔记-Java核心技术-高级特征/index.html">
+<meta property="og:site_name" content="KioLuo">
+<meta property="og:description" content="第一章–流与文件———————————————- 流 读写字节 java.io.InputStream 1.0  abstract  int read()  //从数据中读入一个字节，并返回该字节，在碰到流的结尾时返回-1 int read(byte[] b)  //读入一个字节数组，并返回实际读入的字节数，或者在碰到流的结尾时返回-1 int read(byte[] b,  int off,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-13T11:07:17.381Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="读书笔记--Java核心技术--高级特征">
+<meta name="twitter:description" content="第一章–流与文件———————————————- 流 读写字节 java.io.InputStream 1.0  abstract  int read()  //从数据中读入一个字节，并返回该字节，在碰到流的结尾时返回-1 int read(byte[] b)  //读入一个字节数组，并返回实际读入的字节数，或者在碰到流的结尾时返回-1 int read(byte[] b,  int off,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/13/读书笔记-Java核心技术-高级特征/"/>
+
+
+
+
+
+  <title> 读书笔记--Java核心技术--高级特征 | KioLuo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KioLuo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">hahaha~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/13/读书笔记-Java核心技术-高级特征/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KioLuo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://b-ssl.duitang.com/uploads/item/201602/18/20160218194039_c2Kmt.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KioLuo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                读书笔记--Java核心技术--高级特征
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-13T18:08:27+08:00">
+                2017-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>第一章–流与文件———————————————-</strong></p>
+<p><strong>流</strong></p>
+<p><strong>读写字节</strong></p>
+<p><strong>java.io.InputStream 1.0</strong></p>
+<ol>
+<li><code>abstract  int read()  //从数据中读入一个字节，并返回该字节，在碰到流的结尾时返回-1</code></li>
+<li><code>int read(byte[] b)  //读入一个字节数组，并返回实际读入的字节数，或者在碰到流的结尾时返回-1</code></li>
+<li><code>int read(byte[] b,  int off,  int len)  //读入一个字节数组。这个read方法返回实际读入的字节数，或者在碰到流的结尾时返回-1</code></li>
+<li><code>long skip(long n)  //在输入流中跳过n个字节，返回实际跳过的字节数（如果碰到流的结尾，则可能小于n）</code></li>
+<li><code>int available()  //返回在不阻塞的情况下可用的字节数</code></li>
+<li><code>void close()  //关闭这个输入流</code></li>
+<li><code>void mark(int readLimit)  //在输入流的当前位置打一个标记，如果输入流中已经读入的字节多于readLimit个，则这个流允许忽略这个标记</code></li>
+<li><code>void reset()  //返回到最后的标记，随后对read的调用将重新读入这些字节</code></li>
+<li><code>boolean markSupported()  //如果这个流支持打标记，则返回true</code></li>
+</ol>
+<p><strong>java.io.OutputStream 1.0</strong></p>
+<ol>
+<li><code>abstract  void write(int n)  //写出一个字节的数据</code></li>
+<li><code>void write(byte[] b)</code></li>
+<li><code>void write(byte[] b,  int off,  int len)  //写出所有字节或者某个范围的字节到数组b中</code></li>
+<li><code>void close()  //清空并关闭输出流</code></li>
+<li><code>void flush()  //清空输出流，也就是将所有缓冲的数据发送到目的地</code></li>
+</ol>
+<p>流家族</p>
+<p>InputStream和OutputStream为基础</p>
+<p>DataInputStream和DataOutputStream可以以二进制格式读写所有的基本Java类型</p>
+<p>ZipInputStream和ZipOutputStream可以以常见的ZIP压缩格式读写文件</p>
+<p>4个附加接口：Closeable、Flushable、Readable和Appendable</p>
+<p><strong>java.io.Closeable 5.0</strong></p>
+<ol>
+<li><code>void close()  //关闭这个Closeable，可能会抛出IOException</code></li>
+</ol>
+<p><strong>java.io.Flushable 5.0</strong></p>
+<ol>
+<li><code>void flush()  //清空这个Flushable</code></li>
+</ol>
+<p><strong>java.lang.Readable 5.0</strong></p>
+<ol>
+<li><code>int read(CharBuffer cb)  //尝试读入cb可以持有的数量的char值。返回读入的char值的数量</code></li>
+</ol>
+<p><strong>java.lang.Appendable 5.0</strong></p>
+<ol>
+<li><code>Appendable append(char c)</code></li>
+<li><code>Appendable append(CharSequence cs)  //向这个Appendable中追加给定的码元或者给定的序列中的所有码元，返回this</code></li>
+</ol>
+<p><strong>java.lang.CharSequence 1.4</strong></p>
+<ol>
+<li><code>char charAt(int index)  //返回给定索引处的码元</code></li>
+<li><code>int length()  //返回这个序列中的码元的数量</code></li>
+<li><code>CharSequence subSequence(int startIndex,  int endIndex)  //返回由存储在startIndex到endIndex - 1处的所有码元构成的CharSequence</code></li>
+<li><code>String toString()  //返回这个序列中所有码元构成的字符串</code></li>
+</ol>
+<p>组合流过滤器</p>
+<ol>
+<li><code>FileInputStream fin =  new  FileInputStream(&quot;employee.dat&quot;);</code></li>
+<li><code>DataInputStream din =  new  DataInputStream(fin);</code></li>
+<li><code>double s = din.readDouble();</code></li>
+</ol>
+<p>使用缓冲机制</p>
+<ol>
+<li><code>DataInputStream din =  new  DataInputStream(</code></li>
+<li><code>new  BufferedInputStream(</code></li>
+<li><code>new  FileInputStream(&quot;employee.dat&quot;)));</code></li>
+</ol>
+<p>从一个ZIP压缩文件中读入数字</p>
+<ol>
+<li><code>ZipInputStream zin =  new  ZipInputStream(new  FileInputStream(&quot;employee.zip&quot;));</code></li>
+<li><code>DataInputStream din =  new  DataInputStream(zin);</code></li>
+</ol>
+<p><strong>java.io.FileInputStream 1.0</strong></p>
+<ol>
+<li><code>FileInputStream(String name)</code></li>
+<li><code>FileInputStream(File file)  //使用由name字符串或file对象指定路径名的文件创建一个新的文件输入流</code></li>
+</ol>
+<p><strong>java.io.FileOutputStream 1.0</strong></p>
+<ol>
+<li><code>FileOutputStream(String name)</code></li>
+<li><code>FileOutputStream(String name,  boolean append)</code></li>
+<li><code>FileOutputStream(File file)</code></li>
+<li><code>FileOutputStream(File file,  boolean append) //</code>使用由name字符串或file对象指定路径名的文件创建一个新的文件输出流</li>
+</ol>
+<p><strong>java.io.BufferedInputStream 1.0</strong></p>
+<ol>
+<li><code>BufferedInputStream(InputStream in)  //创建一个带缓冲区的流</code></li>
+</ol>
+<p><strong>java.io.BufferdOutputStream 1.0</strong></p>
+<ol>
+<li><code>BufferedOutputStream(OutputStream out)  //创建一个带缓冲区的流</code></li>
+</ol>
+<p><strong>java.io.PushbackInputStream 1.0</strong></p>
+<ol>
+<li><code>PushbackInputStream(InputStream in)</code></li>
+<li><code>PushbackInputStream(InputStream in,  int size)  //构建一个可以预览一个字节或者具有指定尺寸的回推缓冲区的流</code></li>
+<li>void unread(int b)  //回推一个字节，它可以在下次调用read时被再次获取，b:要再次读入的字节</li>
+</ol>
+<p><strong>文本输入与输出</strong></p>
+<ol>
+<li><code>InputStreamReader in =  new  InputStreamReader(new  FileInputStream(&quot;input.txt&quot;),  &quot;ISO8859_5&quot;);</code></li>
+<li>等价于</li>
+<li><code>FileReader in =  new  FileReader(&quot;input.txt&quot;):</code></li>
+</ol>
+<p>以文本格式打印字符串和数字</p>
+<ol>
+<li><code>PrintWriter out =  new  PrintWriter(&quot;employee.txt&quot;):</code></li>
+<li><code>等同于</code></li>
+<li><code>PrintWriter out =  new  PrintWriter(new  FileWriter(&quot;employee.txt&quot;));</code></li>
+</ol>
+<p>System.out是PrintStream类，在内部采用与PrintWriter相同的方式将Unicode字符转换成了默认的主机编码方式。与PrintWriter不同的是，它们允许我们用write(int)和write(byte[])方法输出原生字节</p>
+<p><strong>java.io.PrintWriter 1.1</strong></p>
+<ol>
+<li><code>PrintWriter(Writer out)</code></li>
+<li><code>PrintWriter(Writer out,  boolean autoFlush)  //创建一个新的PrintWriter</code></li>
+<li><code>PrintWriter(OutputStream out)</code></li>
+<li><code>PrintWriter(OutputStream out,  boolean autoflush)  //通过创建必需的中介OutputStreamWriter，从已有的OutputStream中创建一个新的PrintWriter</code></li>
+<li><code>PrintWriter(String filename)</code></li>
+<li><code>PrintWriter(File file)  //通过创建必需的中介FileWriter，创建一个想给定的文件写出的新的PrintWriter</code></li>
+<li><code>void print(Object obj)  //通过打印从toString产生的字符串来打印一个对象</code></li>
+<li><code>void print(String s)  //打印一个Unicode字符串</code></li>
+<li><code>void println(String s)  //打印一个字符串，后面紧跟一个行终止符</code></li>
+<li><code>void print(char[] s)  //打印给定的字符串中的所有Unicode字符</code></li>
+<li><code>void print(char c)  //打印一个Unicode字符</code></li>
+<li><code>void print(int i)</code></li>
+<li><code>void print(long l)</code></li>
+<li><code>void print(float f)</code></li>
+<li><code>void print(double d)</code></li>
+<li><code>void print(boolean b)  //以文本格式打印给定的值</code></li>
+<li><code>void printf(String format,  Object... args)  //按照格式化字符串指定的方式打印给定的值</code></li>
+<li><code>boolean checkError()  //如果产生格式化或输出错误，返回true</code></li>
+</ol>
+<p>使用Scanner读入文本输入</p>
+<p>Java SE 5.0之前，处理文本的唯一方式就是BufferedReader类，它拥有一个readLine方法，可以读入一行文本</p>
+<ol>
+<li><code>BufferedReader in =  new  BufferedReader(new  FileReader(&quot;employee.txt&quot;));</code></li>
+</ol>
+<p>字符集</p>
+<ol>
+<li><code>//编码Unicode字符串</code></li>
+<li><code>Charset cset =  Charset.forName(&quot;ISO-8859-1&quot;):</code></li>
+<li><code>String str =  ...;</code></li>
+<li><code>ByteBuffer buffer = cset.encode(str);</code></li>
+<li><code>byte[] bytes = buffer.array();</code></li>
+<li><code>//解码字节序列</code></li>
+<li><code>byte[] bytes =  ...;</code></li>
+<li><code>ByteBuffer bbuf =  ByteBuffer.wrap(bytes, offset, length);</code></li>
+<li><code>CharBuffer cbuf = cset.decode(bbuf);</code></li>
+<li><code>String str = cbuf.toString();</code></li>
+</ol>
+<p><strong>java.nio.charset.Charset 1.4</strong></p>
+<ol>
+<li><code>static  SortedMap availableCharsets()  //获取这个虚拟机可用的所有字符集。返回一个映射表，它的键是字符集的名字，值是字符集</code></li>
+<li><code>static  Charset forName(String name)  //获取给定名字的字符集</code></li>
+<li><code>Set aliases()  //返回这个字符集的别名集</code></li>
+<li><code>ByteBuffer encode(String str)  //将给定的字符串编码为字节序列</code></li>
+<li><code>CharBuffer decode(ByteBuffer buffer)  //解码给定的字节序列，无法识别的输入将被转换成Unicode的“替代字符”（’\uFFFD&#39;)</code></li>
+</ol>
+<p><strong>java.nio.ByteBuffer 1.4</strong></p>
+<ol>
+<li><code>byte[] array()  //返回这个缓冲区所管理的字节数组</code></li>
+<li><code>static  ByteBuffer wrap(byte[] bytes)</code></li>
+<li><code>static  ByteBuffer wrap(byte[] bytes,  int offset,  int length)  //返回管理给定的字节数组或给定字节数组的某个范围的字节缓冲区</code></li>
+</ol>
+<p><strong>java.nio.CharBuffer</strong></p>
+<ol>
+<li><code>char[] array()  //返回这个缓冲区所管理的码元数组</code></li>
+<li><code>char charAt(int index)  //返回给定索引处的码元</code></li>
+<li><code>String toString()  //返回由这个缓冲区所管理的码元构成的字符串</code></li>
+</ol>
+<p><strong>读写二进制数据</strong></p>
+<p>DataInputStream类实现了DataInput接口</p>
+<p><strong>java.io.DataInput 1.0</strong></p>
+<ol>
+<li><code>boolean readBoolean()</code></li>
+<li><code>byte readByte()</code></li>
+<li><code>char readChar()</code></li>
+<li><code>double readDouble()</code></li>
+<li><code>float readFloat()</code></li>
+<li><code>int readInt()</code></li>
+<li><code>long readLong()</code></li>
+<li><code>short readShort()  //读入一个给定类型的值</code></li>
+<li><code>void readFully(byte[] b)  //将字节读入到数组b中，其间阻塞直至所有字节都读入</code></li>
+<li><code>void readFully(byte[] b,  int off,  int len)  //将字节读入到数组b中，其间阻塞直至所有字节都读入</code></li>
+<li><code>String readUTF()  //读入由“修订过的UTF-8”格式的字符构成的字符串</code></li>
+<li><code>int skipBytes(int n)  //跳过n个字节，其间阻塞直至所有字节都被跳过</code></li>
+</ol>
+<p><strong>java.io.DataOutput 1.0</strong></p>
+<ol>
+<li><code>void writeBoolean(boolean b)</code></li>
+<li><code>void writeByte(int b)</code></li>
+<li><code>void writeChar(int c)</code></li>
+<li><code>void writeDouble(double d)</code></li>
+<li><code>void writeFloat(float f)</code></li>
+<li><code>void writeInt(int i)</code></li>
+<li><code>void writeLong(long l)</code></li>
+<li><code>void writeShort(int s)  //写出一个给定类型的值</code></li>
+<li><code>void writeChars(String s)  //写出字符串中的所有字符</code></li>
+<li><code>void writeUTF(String s)  //写出由“修订过的UTF-8”格式的字符构成的字符串</code></li>
+</ol>
+<p>随机访问文件</p>
+<p>RandomAccessFile类可以在文件中的任何位置查找或写入数据，通过“r”或”rw”来指定。同时实现了DataInput和DataOutput接口</p>
+<p><strong>java.io.RandomAccessFile 1.0</strong></p>
+<ol>
+<li><code>RandomAccessFile(String file,  String mode)</code></li>
+<li><code>RandomAccessFile(File file,  String mode)  //file:要打开的文件，mode:&quot;r&quot;表示只读模式，&quot;rw&quot;表示读/写模式</code></li>
+<li><code>long getFilePointer()  //返回文件指针的当前位置</code></li>
+<li><code>void seek(long pos)  //将文件指针从文件的开始设置到pos个字节处</code></li>
+<li><code>long length()  //返回文件按照字节来度量的长度</code></li>
+</ol>
+<p><strong>ZIP文档</strong></p>
+<p>通读ZIP文件代码：</p>
+<ol>
+<li><code>ZipInputStream zin =  new  ZipInputStream(new  FileInputStream(zipname));</code></li>
+<li><code>ZipEntry entry;</code></li>
+<li><code>while  ((entry = zin.getNextEntry())  !=  null)</code></li>
+<li><code>{</code></li>
+<li><code>analyze entry;</code></li>
+<li><code>read the contents of zin;</code></li>
+<li><code>zin.closeEntry();</code></li>
+<li><code>}</code></li>
+<li><code>zin.close();</code></li>
+</ol>
+<p>写出ZIP文件代码：</p>
+<ol>
+<li><code>FileOutputStream fout =  new  FileOutputStream(&quot;test.zip&quot;);</code></li>
+<li><code>ZipOutputStream zout =  new  ZipOutputStream(fout);</code></li>
+<li><code>for all files</code></li>
+<li><code>{</code></li>
+<li><code>ZipEntry ze =  new  ZipEntry(filename);</code></li>
+<li><code>zout.putNextEntry(ze);</code></li>
+<li><code>send data to zout;</code></li>
+<li><code>zout.closeEntry();</code></li>
+<li><code>}</code></li>
+<li><code>zout.close();</code></li>
+</ol>
+<p><strong>java.util.zip.ZipInputStream 1.1</strong></p>
+<ol>
+<li><code>ZipInputStream(InputStream in)  //创建一个ZipInputStream</code></li>
+<li><code>ZipEntry getNextEntry()  //为下一项返回ZipEntry对象，否则没有更多的项时返回null</code></li>
+<li><code>void closeEntry()  //关闭这个ZIP文件中当前打开的项</code></li>
+</ol>
+<p><strong>java.util.zip.ZipOutputStream 1.1</strong></p>
+<ol>
+<li><code>ZipOutputStream(OutputStream out)  //创建一个将压缩数据写出到指定的OutputStream的ZipOutputStream</code></li>
+<li><code>void putNextEntry(ZipEntry ze)  //将给定的ZipEntry中的信息写出到流中，并定为用于写出数据的流，然后这些数据可以通过write()写出到这个流中</code></li>
+<li><code>void closeEntry()  //关闭这个ZIP文件中当前打开的项</code></li>
+<li><code>void setLevel(int level)  //设置后续的各个DEFAULTED项的默认压缩级别。</code></li>
+<li><code>void setMethod(int method)  //设置用于这个ZipOutputStream的默认压缩方法，压缩方法：DEFLATED或STORED</code></li>
+</ol>
+<p><strong>java.util.zip.ZipEntry 1.1</strong></p>
+<ol>
+<li><code>ZipEntry(String name)  //这一项的名字</code></li>
+<li><code>long getCrc()  //返回用于这个ZipEntry的CRC32校验和的值</code></li>
+<li><code>String getName()  //返回这一项的名字</code></li>
+<li><code>long getSize()  //返回这一项不被压缩的大小</code></li>
+<li><code>boolean isDirectory()  //当这一项是目录时返回true</code></li>
+<li><code>void setSize(long size)  //设置这一项的大小，当压缩方法是STORED时才必需</code></li>
+<li><code>void setCrc(long crc)  //给这一项设置CRC32校验和，这个校验和是使用CRC32类计算的，STORED时必需</code></li>
+</ol>
+<p><strong>java.util.zip.ZipFile 1.1</strong></p>
+<ol>
+<li><code>ZipFile(String name)</code></li>
+<li><code>ZipFile(File file)  //创建一个ZipFile，用于从给定的字符串或File对象中读入数据</code></li>
+<li><code>Enumeration entries()  //返回一个Enumeration对象，它枚举了描述这个ZipFile中各个项的ZipEntry对象</code></li>
+<li><code>ZipEntry getEntry(String name)  //返回给定名字所对应的项，或者在没有对应项的时候返回null</code></li>
+<li><code>InputStream getInputStream(ZipEntry ze)  //返回用于给定项的InputStream</code></li>
+<li><code>String getName()  //返回这个ZIP文件的路径</code></li>
+</ol>
+<p><strong>对象流与序列化</strong></p>
+<p>对象序列化（object serialization)</p>
+<p>ObjectInputStream和ObjectOutputStream类，readObject和writeObject方法</p>
+<p>在对象流中存储或恢复的所有类都需要实现Serializable接口</p>
+<p><strong>java.io.ObjectOutputStream 1.1</strong></p>
+<ol>
+<li><code>ObjectOutputStream(OutputStream out)  //创建一个ObjectOutputStream使得你可以将对象写出到指定的OutputStream</code></li>
+<li><code>void writeObject(Object obj)  //写出指定的对象到ObjectOutputStream，这个方法将存储指定对象的类、类的签名以及这个类及其超类中所有非静态和非瞬时的域的值</code></li>
+</ol>
+<p><strong>java.io.ObjectInputStream 1.1</strong></p>
+<ol>
+<li><code>ObjectInputStream(InputStream in)  //创建一个ObjectInputStream用于从指定的InputSream中读回对象信息</code></li>
+<li><code>Object readObject()  //从ObjectInputStream中读入一个对象</code></li>
+</ol>
+<p>对象流输出中包含所有对象的类型和数据域</p>
+<p>每个对象都被赋予一个序列号</p>
+<p>相同对象的重复出现将被存储为对这个对象的序列号的引用</p>
+<p>修改默认的序列化机制</p>
+<p>防止不应该被序列化的域被序列化，标记成transient</p>
+<p>可序列化的类可以定义下列方法：</p>
+<ol>
+<li><code>private  void readObject(ObjectInputStream in)  throws  IOException,  ClassNotFoundException;</code></li>
+<li><code>private  void writeObject(ObjectOutputStream out)  throws  IOException;</code></li>
+</ol>
+<p>之后，数据域就不再自动序列化，而是调用这些方法</p>
+<p>类还可以定义它自己的机制，必须实现Externalizable接口，定义两个方法：</p>
+<ol>
+<li><code>public  void readExternal(ObjectInputStream in)  throws  IOException,  ClassNotFoundException;</code></li>
+<li><code>public  void writeExternal(ObjectOutputStream out)  throws  IOException;</code></li>
+</ol>
+<p>序列化单例和类型安全的枚举</p>
+<p>请记住向遗留代码中所有类型安全的枚举以及向所有支持单例设计模式的类中添加readResolve方法</p>
+<p><strong>版本管理</strong></p>
+<p>运行JDK中的单机程序serialver</p>
+<p>serialver Employee</p>
+<p>这个类的所有版本都需要定义</p>
+<p>public static final long serialVersionUID = -184528436328947893L;</p>
+<p><strong>文件管理</strong></p>
+<p>File类</p>
+<p>可以用FileNameFilter对象作为list方法的参数来减小列表长度，一个实现FileNameFilter接口的类需要定义accept方法</p>
+<p>使用File类中存储在名为separator的静态实例域中的有关当前目录分隔符的信息可以得到系统恰当的分隔符</p>
+<p><strong>java.io.File 1.0</strong></p>
+<ol>
+<li><code>boolean canRead()</code></li>
+<li><code>boolean canWrite()</code></li>
+<li><code>boolean canExecute()  //表明文件是否可读、可写或可执行</code></li>
+<li><code>boolean setReadable(boolean state,  boolean ownerOnly)</code></li>
+<li><code>boolean setWritable(boolean state,  boolean ownerOnly)</code></li>
+<li><code>boolean setExecutable(boolean state,  boolean ownerOnly)  //设置这个文件的可读、可写或可执行状态。如果ownerOnly为true，状态设置只对文件拥有者有效，否则，对所有人有效。这些方法在设置状态成功后返回true</code></li>
+<li><code>static  boolean createTempFile(String prefix,  String suffix)</code></li>
+<li><code>static  boolean createTempFile(String prefix,  String suffix,  File directory)  //在系统的默认临时目录或给定目录中创建一个临时文件，并使用给定的前缀或后缀来生成文件名</code></li>
+<li><code>boolean  delete()  //尝试删除这个文件</code></li>
+<li><code>void deleteOnExit()  //请求在虚拟机关闭时将文件删除</code></li>
+<li><code>boolean exists()  //如果目录存在则返回true</code></li>
+<li><code>String getAbsolutePath()  //返回包含绝对路径名的字符串，应该用getCanonicalPath代替它</code></li>
+<li><code>File getCanonicalFile()  //返回包含这个文件的规范路径名的File对象</code></li>
+<li><code>String getCanonicalPath()  //返回包含这个文件的规范路径名的字符串</code></li>
+<li><code>String getName()  //返回包含这个File对象的文件名的字符串（不包含路径）</code></li>
+<li><code>String getParent()  //返回这个File对象的父亲名字的字符串</code></li>
+<li><code>File getParentFile()  //返回这个File目录的父目录的File对象</code></li>
+<li><code>String getPath()  //返回包含这个文件的路径名的字符串</code></li>
+<li><code>boolean isDirectory()  //如果这个File对象表示一个文件而不是一个目录或一个设备，则返回true</code></li>
+<li><code>boolean isFile()  //如果这个File对象表示一个文件而不是一个目录或一个设备，则返回true</code></li>
+<li><code>boolean isHidden()  //如果这个File对象表示的是一个隐藏文件或目录，则返回true</code></li>
+<li><code>long lastModified()  //返回这个文件最后被修改的时间（毫秒数）</code></li>
+<li><code>String[] list()</code></li>
+<li><code>String[] list(FilenameFilter filter)  //返回由这个File对象包含的满足过滤器条件的文件名和目录名构成的字符串数组</code></li>
+<li><code>File[] listFiles()</code></li>
+<li><code>File[] listFiles(FilenameFilter filter)  //返回由这个File对象包含的文件和目录所对应的File对象构成的数组</code></li>
+<li><code>static  File[] listRoots()  //返回由所有可获得的文件根对应的File对象构成的数组</code></li>
+<li><code>boolean createNewFile()  //自动创建一个由File对象给定名字的新文件</code></li>
+<li><code>boolean mkdir()  //创建一个由这个File对象给定名字的子目录</code></li>
+<li><code>boolean mkdirs()  //与mkdir不同，这个方法在必要时将创建父目录</code></li>
+<li><code>boolean renameTo(File newName)  //如果文件名被修改，则返回true</code></li>
+<li><code>boolean setLastModified(long time)  //设置这个文件的最后修改时间</code></li>
+<li><code>boolean setReadOnly()  //将这个文件设置成只读</code></li>
+<li><code>URL toURL()  //将这个File对象转换成一个文件的URL</code></li>
+<li><code>long getTotalSpace()</code></li>
+<li><code>long getFreeSpace()</code></li>
+<li><code>long getUsableSpace()  //获得由File对象所描述的分区的总大小、未分配字节的数量和可用字节的数量</code></li>
+</ol>
+<p><strong>java.io.FilenameFilter 1.0</strong></p>
+<ol>
+<li><code>boolean accept(File dir,  String name)  //应该定义为在文件能够匹配过滤器标准时返回true</code></li>
+</ol>
+<p><strong>新IO</strong></p>
+<p>内存映射文件</p>
+<p><strong>java.io.FileInputStream 1.0</strong></p>
+<ol>
+<li><code>FileChannel getChannel()  //返回用于访问这个流的通道</code></li>
+</ol>
+<p><strong>java.io.FileOutputStream 1.0</strong></p>
+<ol>
+<li><code>FileChannel getChannel()  //返回用于访问这个流的通道</code></li>
+</ol>
+<p><strong>java.io.RandomAccessFile 1.0</strong></p>
+<ol>
+<li><code>FileChannel getChannel()  //返回用于访问这个流的通道</code></li>
+</ol>
+<p><strong>java.nio.channels.FileChannel 1.4</strong></p>
+<ol>
+<li><code>MappedByteBuffer map(FileChannel.MapMode mode,  long position,  long size)  //将文件的一个区域映射到内存中</code></li>
+</ol>
+<p><strong>java.nio.Buffer 1.4</strong></p>
+<ol>
+<li><code>boolean hasRemaining()  //如果当前的缓冲区位置没有达到这个缓冲区的界限位置则返回true</code></li>
+<li><code>int limit()  //返回这个缓冲区的界限位置</code></li>
+</ol>
+<p><strong>java.nio.ByteBuffer 1.4</strong></p>
+<ol>
+<li><code>byte get()  //从当前位置获得一个字节，并将当前位置推到下一个字节</code></li>
+<li><code>byte get(int index)  //从指定索引处获得一个字节</code></li>
+<li><code>ByteBuffer put(byte b)  //向当前位置推入一个字节，并将当前位置推到下一个字节，返回对这个缓冲区的引用</code></li>
+<li><code>ByteBuffer put(int index,  byte b)  //向指定索引处推入一个字节，返回对这个缓冲区的引用</code></li>
+<li><code>ByteBuffer get(byte[] destination)</code></li>
+<li><code>ByteBuffer get(byte[] destination,  int offset,  int length)  //用缓冲区的字节来填充字节数组，或者字节数组的某个区域，并将当前位置向前推读入的字节数个位置，如果缓冲区不够，不会读入任何字节，并抛出BufferUnderflowException</code></li>
+<li><code>ByteBuffer put(byte[] source)</code></li>
+<li><code>ByteBuffer put(byte[] source,  int offset,  int length)  //将字节数组中的所有字节或者给定区域的字节都推入缓冲区，并将当前位置向前推写出的字节数个位置</code></li>
+<li><code>Xxx getXxx()</code></li>
+<li><code>Xxx getXxx(int index)</code></li>
+<li><code>ByteBuffer putXxx(xxx value)</code></li>
+<li><code>ByteBuffer putXxx(int index, xxx value)  //获得或放置一个二进制数</code></li>
+<li><code>ByteBuffer order(ByteOrder order)</code></li>
+<li><code>ByteOrder order()  //设置或获得字节顺序，order的值是ByteOrder类的常量BIG_ENDIAN或LITTLE_ENDIAN中的一个</code></li>
+</ol>
+<p>缓冲区数据结构</p>
+<p><strong>java.nio.Buffer 1.4</strong></p>
+<ol>
+<li><code>Buffer clear()  //通过将位置复位到0，并将界限复位到容量，使这个缓冲区为写出做好准备。返回this</code></li>
+<li><code>Buffer flip()  //通过将界限设置为位置，并将位置复位到0，使这个缓冲区为读入做好准备，返回this</code></li>
+<li><code>Buffer rewind()  //通过将读写位置复位到0，并保持极限不变，使这个缓冲区为重新读入相同的值做好准备，返回this</code></li>
+<li><code>Buffer mark()  //将这个缓冲区的标记设置到读写位置，返回this</code></li>
+<li><code>Buffer reset()  //将这个缓冲区的位置设置到标记，从而允许被标记的部分可以再次被读入或写出，返回this</code></li>
+<li><code>int remaining()  //返回剩余可读入或可写出的值的数量，即界限与位置之间的差异</code></li>
+<li><code>int position()  //返回这个缓冲区的位置</code></li>
+<li><code>int capacity()  //返回这个缓冲区的容量</code></li>
+</ol>
+<p><strong>java.nio.CharBuffer 1.4</strong></p>
+<ol>
+<li><code>char get()</code></li>
+<li><code>CharBuffer get(char[] destination)</code></li>
+<li><code>CharBuffer get(char[] destination,  int offset,  int length)  //从这个缓冲区的位置处开始，获得一个char值，或者某个范围的char值，然后将位置向前推过所读入的字符，最后两个方法返回this</code></li>
+<li><code>CharBuffer put(char c)</code></li>
+<li><code>CharBuffer put(char[] source)</code></li>
+<li><code>CharBuffer put(char[] source,  int offset,  int length)</code></li>
+<li><code>CharBuffer put(String source)</code></li>
+<li><code>CharBuffer put(CharBuffer source)  //从这个缓冲区的位置处开始，推入一个char值，或者某个范围的char值，然后将位置向前推过所写出的字符</code></li>
+<li><code>CharBuffer read(CharBuffer destination)  //从这个缓冲区中获得char值，然后将它们推入目标缓冲区，直至达到目标缓冲区的界限</code></li>
+</ol>
+<p>文件加锁机制</p>
+<p>文件加锁机制是依赖于操作系统的</p>
+<p>文件锁是由整个Java虚拟机持有的。如果有两个程序是由同一个虚拟机启动的，那么它们不可能每一个都获得一个在同一个文件上的锁，当调用lock和tryLock方法时，如果虚拟机已经在同一个文件上持有了另一个重叠的锁，那么这两个方法将抛出OverlappingFileLockException</p>
+<p><strong>java.nio.channels.FileChannel 1.4</strong></p>
+<ol>
+<li><code>FileLock lock()  //在整个文件上获得一个独占的锁，这个方法将阻塞直至获得锁</code></li>
+<li><code>FileLock tryLock()  //在整个文件上获得一个独占的锁，或者在无法获得锁的情况下返回null</code></li>
+<li><code>FileLock lock(long position,  long size,  boolean shared)</code></li>
+<li><code>FileLock tryLock(long position,  long size,  boolean shared)  //在文件的一个区域上获得锁</code></li>
+</ol>
+<p><strong>java.nio.channels.FileLock 1.4</strong></p>
+<ol>
+<li><code>void release()  //释放这个锁</code></li>
+</ol>
+<p><strong>正则表达式</strong></p>
+<p>语法</p>
+<ol>
+<li><code>String patternString =  &quot;]*)\\s*&gt;&quot;</code></li>
+</ol>
+<p>用法</p>
+<ol>
+<li><code>Pattern pattern =  Pattern.compile(patternString);</code></li>
+<li><code>Matcher matcher = pattern.matcher(input);</code></li>
+<li><code>if  (matcher.matches())  ...</code></li>
+</ol>
+<p><strong>java.util.regex.Pattern 1.4</strong></p>
+<ol>
+<li><code>static  Pattern compile(String expression)</code></li>
+<li><code>static  Pattern compile(String expression,  int flags)  //把正则表达式字符串编译到一个用于快速处理匹配的模式对象中</code></li>
+<li><code>Matcher matcher(CharSequence input)  //返回一个matcher对象，可以用它在输入定位模式的匹配</code></li>
+<li><code>String[] split(CharSequence input)</code></li>
+<li><code>String[] split(CharSequence input,  int limit)  //将输入分割成标号，其中模式指定了分隔符的形式</code></li>
+</ol>
+<p><strong>java.util.regex.Matcher 1.4</strong></p>
+<ol>
+<li><code>boolean matches()  //如果输入匹配模式，则返回true</code></li>
+<li><code>boolean lookingAt()  //如果输入的开头匹配模式，则返回true</code></li>
+<li><code>boolean find()</code></li>
+<li><code>boolean find(int start)  //尝试查找下一个匹配，找到返回true</code></li>
+<li><code>int start()</code></li>
+<li><code>int end()  //返回当前匹配的开始索引和结尾之后的索引</code></li>
+<li><code>String group()  //返回当前的匹配</code></li>
+<li><code>int groupCount()  //返回输入模式中的群组数量</code></li>
+<li><code>int start(int groupIndex)</code></li>
+<li><code>int end(int groupIndex)  //返回当前匹配中给定群组的开始和结尾之后的位置</code></li>
+<li><code>String group(int groupIndex)  //返回匹配给定群组的字符串</code></li>
+<li><code>String replaceAll(String replacement)</code></li>
+<li><code>String replaceFirst(String replacement)  //返回从匹配器输入获得的通过将所有匹配或第一个匹配用替换字符串替换之后的字符串</code></li>
+<li><code>Matcher reset()</code></li>
+<li><code>Matcher reset(CharSequence input)  //复位匹配器的状态。第二个方法将使匹配器作用于另一个不同的输入，两个方法都返回this</code></li>
+</ol>
+<p><strong>第二章–XML———————————————-</strong></p>
+<p><strong>XML文档</strong></p>
+<p>文档头</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+</code></pre><p>文档类型定义（DTD，Document Type Definition）</p>
+<pre><code>&lt;!DOCTYPE web-app PUBLIC &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN&quot; &quot;http:java.sun.com/j2ee/dtds/web-app_2_2.dtd&quot;&gt;
+</code></pre><p>通常属性只应该在修改值的解释时使用，而不是在指定值时使用</p>
+<p>字符引用：&amp;#233 （十进制）; &amp;#xD9（十六进制）</p>
+<p>实体引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&amp;lt; 小于</div><div class="line">&amp;gt; 大于</div><div class="line">&amp;amp; &amp;</div><div class="line">&amp;quot; 引号</div><div class="line">&amp;apos; 省略号</div></pre></td></tr></table></figure></p>
+<p>CDATA部分: 用&lt;![CDATA[和]]&gt;来限定其界限，可用来包含含有&lt;、&gt;、&amp;之类字符的字符串<br>处理指令：用&lt;?和?&gt;限定界限<br>注释：用&lt;!-和–&gt;限定界限</p>
+<p><strong>解析XML文档</strong></p>
+<p>DOM（Document Object Model，文档对象模型）解析器：树型解析器</p>
+<p>用于XML的简单API（Simple API for XML, SAX)解析器：流机制解析器</p>
+<p>读入一个XML文档</p>
+<ol>
+<li><code>DocumentBuilderFactory factory =  DocumentBuilderFactory.newInstance();</code></li>
+<li><code>DocumentBuilder builder = factory.newDocumentBuilder();</code></li>
+<li><code>File f =  ...</code></li>
+<li><code>Document doc = builder.parse(f);</code></li>
+</ol>
+<p><strong>javax.xml.parsers.DocumentBuilderFactory 1.4</strong></p>
+<ol>
+<li><code>static  DocumentBuilderFactory newInstance()  //返回DocumentBuilderFactory类的一个实例</code></li>
+<li><code>DocumentBuilder newDocumentBuilder()  //返回DocumentBuilder类的一个实例</code></li>
+</ol>
+<p><strong>javax.xml.parsers.DocumentBuilder 1.4</strong></p>
+<ol>
+<li><code>Document parse(File f)</code></li>
+<li><code>Document parse(String url)</code></li>
+<li><code>Document parse(InputStream in)  //解析来自给定文件、URL或输入流的XML文档，返回解析后的文档</code></li>
+</ol>
+<p><strong>org.w3c.dom.Document 1.4</strong></p>
+<ol>
+<li><code>Element getDocumentElement()  //返回文档的根元素</code></li>
+</ol>
+<p><strong>org.w3c.dom.Element 1.4</strong></p>
+<ol>
+<li><code>String getTagName()  //返回元素的名字</code></li>
+<li><code>String getAttribute(String name)  //返回给定名字的属性值，没有该属性时返回空字符串</code></li>
+</ol>
+<p><strong>org.w3c.dom.Node 1.4</strong></p>
+<ol>
+<li><code>NodeList getChildNodes()  //返回包含所有子元素节点的节点列表</code></li>
+<li><code>Node getFirstChild()</code></li>
+<li><code>Node getLastChild()  //获取该节点的第一个或最后一个子节点，在该节点没有子节点时返回null</code></li>
+<li><code>Node getNextSibling()</code></li>
+<li><code>Node getPreviousSibling()  //获取该节点的下一个或上一个兄弟节点，在该节点没有兄弟节点时返回null</code></li>
+<li><code>Node getParentNode()  //获取该节点的父结点，在该节点是文档节点时返回null</code></li>
+<li><code>NamedNodeMap getAttributes()  //返回含有描述该节点所有属性的Attr节点的映射表</code></li>
+<li><code>String getNodeName()  //返回该节点的名字，当该结点是Attr节点时，该名字就是属性名</code></li>
+<li><code>String getNodeValue()  //返回该节点的值，当该节点是Attr节点时，该值就是属性值</code></li>
+</ol>
+<p><strong>org.w3c.dom.CharacterData 1.4</strong></p>
+<ol>
+<li><code>String getData()  //返回存储在节点中的文本</code></li>
+</ol>
+<p><strong>org.w3c.dom.NodeList 1.4</strong></p>
+<ol>
+<li><code>int getLength()  //返回列表中的节点数</code></li>
+<li><code>Node item(int index)  //返回给定索引号的节点</code></li>
+</ol>
+<p><strong>org.w3c.dom.NamedNodeMap 1.4</strong></p>
+<ol>
+<li><code>int getLength()  //返回该节点映射表中的节点数</code></li>
+<li><code>Node item(int index)  //返回给定索引号的节点</code></li>
+</ol>
+<p><strong>验证XML文档</strong></p>
+<p>DTD</p>
+<pre><code>&lt;!ELEMENT font (name,size)&gt;
+</code></pre><p>XML Schema （xsd文件）</p>
+<pre><code>&lt;xsd:element name=&quot;font&quot;&gt;
+    &lt;xsd:sequence&gt;
+        &lt;xsd:element name=&quot;name&quot; type=&quot;xsd:string&quot; /&gt;
+        &lt;xsd:element name=&quot;size&quot; type=&quot;xsd:int&quot; /&gt;
+    &lt;/xsd:sequence&gt;
+&lt;/xsd:element&gt;
+</code></pre><p>文档类型定义：<br>将DTD纳入XML文档中</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE configuration [
+    &lt;!ELEMENT configuration ...&gt;
+    more rules
+    ...
+]&gt;
+&lt;configuration&gt;
+...
+&lt;/configuration&gt;
+</code></pre><p>将DTD存储在外面</p>
+<pre><code>&lt;!DOCTYPE configuration SYSTEM &quot;config.dtd&quot;&gt;
+</code></pre><p>或者</p>
+<pre><code>&lt;!DOCTYPE configuration SYSTEM &quot;http://myserver.com/config.dtd&quot;&gt;
+</code></pre><p>如果使用DTD的相对URL（比如”config.dtd”），需要给解析器一个文件或URL对象，而不是InputStream，如果必须从一个输入流来解析，请提供一个实体渲染器<br>来源于SGML的用于识别“众所周知的”DTD的机制，如</p>
+<pre><code>&lt;!DOCTYPE web-app
+  PUBLIC &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN&quot; &quot;http://java.sun.com/j2ee/dtds/web-app_2_2.dtd&quot; &gt;
+</code></pre><p>如果使用的是DOM解析器，想要支持公共标识符，需要调用DocumentBuilder类的setEntityResolver方法来安装EntityResolver接口的某个实现类的一个对象，该接口只有一个方法：resolveEntity</p>
+<p>ELEMENT规则</p>
+<p>E*    0或多个E<br>E+    1或多个E<br>E？    0或1个E<br>E1|E2|…|En    E1, E2, …, En中的一个<br>E1, E2, …, En    E1随后是E2，…，En</p>
+<p>#PCDATA    文本<br>(#PCDATA|E1|E2|…|En)*    0或多个任意顺序的文本和E1，E2，…，En（混合式内容）<br>ANY    允许任意子元素<br>EMPTY    不允许有子元素</p>
+<p>元素的规范可以包含嵌套的和复杂的正则表达式，如</p>
+<pre><code>&lt;!ELEMENT chapter (intro, (heading, (para | image | table | note)+)+)
+</code></pre><p>描述合法元素属性的语法规则：</p>
+<pre><code>&lt;!ATTLIST element attribute type default&gt;
+</code></pre><p>两个属性规范范例：</p>
+<pre><code>&lt;!ATTLIST font style (plain|bold|italic|bold-italic) &quot;plain&quot;&gt;
+&lt;!ATTLIST size unit CDATA #IMPLIED&gt;
+</code></pre><p>使用DTD验证输入</p>
+<ol>
+<li><code>factory.setValidating(true);</code></li>
+<li><code>factory.setIgnoringElementContentWhitespace(true);</code></li>
+</ol>
+<p>在验证时，应该安装一个错误处理器，即一个实现了ErrorHandler接口的对象</p>
+<p><strong>javax.xml.parsers.DocumentBuilder 1.4</strong></p>
+<ol>
+<li><code>void setEntityResolver(EntityResolver resolver)  //设置解析器，来定位要分析的XML文档中引用的实体</code></li>
+<li><code>void setErrorHandler(ErrorHandler handler)  //设置报告解析过程中出现的错误和警告的处理器</code></li>
+</ol>
+<p><strong>org.xml.sax.EntityResolver 1.4</strong></p>
+<ol>
+<li><code>public  InputSource resolveEntity(String publicID,  String systemID)  //返回包含被指定ID引用数据的一个输入源，或者，当解析器不知道如何解析某个特定名字时，返回null。如果没有提供公共ID，那么参数publicID可以为null</code></li>
+</ol>
+<p><strong>org.xml.sax.InputSource 1.4</strong></p>
+<ol>
+<li><code>InputSource(InputStream in)</code></li>
+<li><code>InputSource(Reader in)</code></li>
+<li><code>InputSource(String systemID)  //根据流、读入器、或系统ID（通常是相对或绝对URL）构建输入源</code></li>
+</ol>
+<p><strong>org.xml.sax.ErrorHandler 1.4</strong></p>
+<ol>
+<li><code>void fatalError(SAXParseException exception)</code></li>
+<li><code>void error(SAXParseException exception)</code></li>
+<li><code>void warning(SAXParseException exception)  //覆盖这些方法以提供处理器，对致命错误、非致命错误和警告进行处理</code></li>
+</ol>
+<p><strong>org.xml.sax.SAXParseException 1.4</strong></p>
+<ol>
+<li><code>int getLineNumber()</code></li>
+<li><code>int getColumnNumber()  //返回引起异常的已处理的输入信息末尾的行号和列号</code></li>
+</ol>
+<p><strong>javax.xml.parsers.DocumentBuilderFactory 1.4</strong></p>
+<ol>
+<li><code>boolean isValidating()</code></li>
+<li><code>void setValidating(boolean value)  //获取和设置工厂的validating属性，当设为true时，工厂生成的解析器会验证它们的输入信息</code></li>
+<li><code>boolean isIgnoringElementContentWhiteSpace(boolean value)  //获取和设置工厂的ignoringElementContentWhiteSpace属性，当设为true时，工厂生成的解析器会忽略没有混合内容（即元素与#PCDATA混合）的元素节点之间的空白</code></li>
+</ol>
+<p><strong>XML Schema</strong></p>
+<p>如果要在文档中引用Schema文件，需要在根元素中加上属性</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;configuration xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:noNamespaceSchemaLocation=&quot;config.xsd&quot;&gt;
+...
+&lt;/configuration&gt;
+</code></pre><p>解析带有Schema的XML文件和解析带有DTD的文件相似，但有3点差别：<br>//必须打开对命名空间的支持</p>
+<pre><code>factory.setNamespaceAware(true);
+</code></pre><p>//必须执行如下步骤</p>
+<pre><code>final String JAXP_SCHEMA_LANGUAGE = &quot;http://java.sun.com/xml/jaxp/properties/schemaLanguage&quot;;
+final String W3C_XML_SCHEMA = &quot;http://www.w3.org/2001/XMLSchema&quot;;
+factory.setAttribute(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
+</code></pre><p><strong>使用XPath来定位信息</strong></p>
+<p>XPath表达式/configuration/database/username</p>
+<p>使用@操作符可以得到属性值，如</p>
+<p>/gridbag/row[1]/cell[1]/@anchor</p>
+<p><strong>javax.xml.xpath.XPathFactory 5.0</strong></p>
+<ol>
+<li><code>static  XPathFactory newInstance()  //返回XPathFactory实例来创建XPath对象</code></li>
+<li><code>XPath newXpath()  //构建XPath对象来计算XPath表达式</code></li>
+</ol>
+<p><strong>javax.xml.xpath.XPath 5.0</strong></p>
+<ol>
+<li><code>String evaluate(String expression,  Object startingPoint)  /从给定的起点计算表达式，起点可以是一个节点或节点列表，如果结果是一个节点或节点集，则返回的字符串包含所有文本节点子元素的数据</code></li>
+<li><code>Object evaluate(String expression,  Object startingPoint,  QName resultType)  //从给定的起点计算表达式，起点可以是一个节点或节点列表。ResultType是XPathConstants类的常量STRING, NODE, NODESET, NUMBER或BOOLEAN之一</code></li>
+</ol>
+<p><strong>使用命名空间（URI）</strong></p>
+<p>HTTP URL格式最常用</p>
+<p>xmlns:alias=”namespaceURI” 用于定义命名空间和别名</p>
+<p>打开命名空间处理特性</p>
+<ol>
+<li><code>factory.setNamespaceAware(true);</code></li>
+</ol>
+<p>由getNodeName和getTagName等方法返回带有别名前缀的限定名</p>
+<p><strong>org.w3c.dom.Node 1.4</strong></p>
+<ol>
+<li><code>String getLocalName()  //返回本地名（不带别名前缀），或者在解析器不支持命名空间时返回null</code></li>
+<li><code>String getNamespaceURI()  //返回命名空间URI，或者在解析器不支持命名空间时返回null</code></li>
+</ol>
+<p><strong>javax.xml.parsers.DocumentBuilderFactory 1.4</strong></p>
+<ol>
+<li><code>boolean isNamespaceAware()</code></li>
+<li><code>void setNamespaceAware(boolean value)  //获取或设置工厂的namespaceAware属性</code></li>
+</ol>
+<p><strong>流机制解析器</strong></p>
+<p>使用SAX解析器（事件回调）</p>
+<p>在使用SAX解析器时，需要一个处理器来定义不同的解析器事件的事件动作，ContentHandler接口定义了若干个回调方法，如startElement, endElement, characters, startDocument和endDocument</p>
+<ol>
+<li><code>SAXParserFactory factory =  SAXParserFactory.newInstance();</code></li>
+<li><code>SAXParser parser = factory.newSAXParser();</code></li>
+<li><code>parser.parse(source, handler);</code></li>
+</ol>
+<p>处理器属于DefaultHandler的一个子类，DefaultHandler类为4个接口定义了空的方法：ContentHandler, DTDHandler, EntityResolver, ErrorHandler</p>
+<p><strong>javax.xml.parsers.SAXParserFactory 1.4</strong></p>
+<ol>
+<li><code>static  SAXParserFactory newInstance()  //返回SAXParserFactory类的一个实例</code></li>
+<li><code>SAXParser newSAXParser()  //返回SAXParser类的一个实例</code></li>
+<li><code>boolean isNamespaceAware()</code></li>
+<li><code>void setNamespaceAware(boolean value)  //获取和设置工厂的namespaceAware属性</code></li>
+<li><code>boolean isValidating()</code></li>
+<li><code>void setValidating(boolean value)  //获取和设置工厂的validating属性</code></li>
+</ol>
+<p><strong>javax.xml.parsers.SAXParser 1.4</strong></p>
+<ol>
+<li><code>void parse(File f,  DefaultHandler handler)</code></li>
+<li><code>void parse(String url,  DefaultHandler handler)</code></li>
+<li><code>void parse(InputStream in,  DefaultHandler handler)  //解析来自给定文件、URL或输入流的XML文档，并把解析事件报告给指定的处理器</code></li>
+</ol>
+<p><strong>org.xml.sax.ContentHandler 1.4</strong></p>
+<ol>
+<li><code>void startDocument()</code></li>
+<li><code>void endDocument()</code></li>
+<li><code>void startElement(String uri,  String lname,  String qname,  Attributes attr)</code></li>
+<li><code>void endElement(String uri,  String lname,  String qname)  //在元素的起始或结束时被调用</code></li>
+<li><code>void characters(char[] data,  int start,  int length)  //解析器报告字符数据时被调用</code></li>
+</ol>
+<p><strong>org.xml.sax.Attributes 1.4</strong></p>
+<ol>
+<li><code>int getLength()  //返回存储在该属性集合中属性数量</code></li>
+<li><code>String getLocalName(int index)  //返回给定索引的属性的本地名（无别名前缀），或当不支持命名空间特性时返回空字符串</code></li>
+<li><code>String getURI(int index)  //返回给定索引的属性的命名空间URI</code></li>
+<li><code>String getQName(int index)  //返回给定索引的属性的限定名</code></li>
+<li><code>String getValue(int index)</code></li>
+<li><code>String getValue(String qname)</code></li>
+<li><code>String getValue(String uri,  String lname)  //根据给定索引、限定名或命名空间URI+本地名，返回属性值，该值不存在时返回null</code></li>
+</ol>
+<p>使用StAX解析器（提供解析事件的迭代器）</p>
+<ol>
+<li><code>InputStream in = url.openStream();</code></li>
+<li><code>XMLInputFactory factory =  XMLInputFactory.newInstance();</code></li>
+<li><code>XMLStreamReader parser = factory.createXMLStreamReader(in);</code></li>
+<li><code>while  (parser.hasNext())  {</code></li>
+<li><code>int event = parser.next();</code></li>
+<li><code>Call parser methods to obtain event details</code></li>
+<li><code>}</code></li>
+</ol>
+<p><strong>javax.xml.stream.XMLInputFactory 6</strong></p>
+<ol>
+<li><code>static  XMLInputFactory newInstance()  //返回XMLInputFactory类的一个实例</code></li>
+<li><code>void setProperty(String name,  Object value)  //设置这个工厂的属性，或者在要设置的属性不支持设置成给定值时，抛出IllegalArgumentException</code></li>
+<li><code>XMLStreamReader createXMLStreamReader(InputStream in)</code></li>
+<li><code>XMLStreamReader createXMLStreamReader(InputStream in,  String characterEncoding)</code></li>
+<li><code>XMLStreamReader createXMLStreamReader(Reader in)</code></li>
+<li><code>XMLStreamReader createXMLStreamReader(Source in)  //创建一个从给定的流、阅读器或JAXP源读入的解析器</code></li>
+</ol>
+<p><strong>javax.xml.stream.XMLStreamReader 6</strong></p>
+<ol>
+<li><code>boolean hasNext()  //如果有另一个解析事件则返回true</code></li>
+<li><code>int next()  //将解析器的状态设置为下一个解析事件，并返回下列常量之一：START_ELEMENT、CHARACTERS、START_DOCUMENT、END_DOCUMENT、CDATA、COMMENT、SPACE（可忽略的空白字符）、PROCESSING_INSTRUCTION、ENTITY_REFERENCE、DTD</code></li>
+<li><code>boolean isStartElement()</code></li>
+<li><code>boolean isEndElement()</code></li>
+<li><code>boolean isCharacters()</code></li>
+<li><code>boolean isWhiteSpace()  //如果当前事件是一个开始元素、结束元素、字符数据或空白字符，返回true</code></li>
+<li><code>QName getName()</code></li>
+<li><code>String getLocalName()  //获取在START_ELEMENT或END_ELEMENT事件中的元素的名字</code></li>
+<li><code>String getText()  //返回一个CHARACTERS、COMMENT或CDATA事件，或一个ENTITY_REFERENCE的替换值，或者一个DTD的内部子集所对应的字符</code></li>
+<li><code>int getAttributeCount()</code></li>
+<li><code>QName getAttributeName(int index)</code></li>
+<li><code>String getAttributeLocalName(int index)</code></li>
+<li><code>String getAttributeValue(int index)</code></li>
+<li><code>String getAttributeValue(String namespaceURI,  String name)  //只要当前事件是START_ELEMENT，则获取给定属性的值，如果namespaceURI为null，则不检查名字空间</code></li>
+</ol>
+<p><strong>生成XML文档</strong></p>
+<p>用文档的内容构建一棵DOM树</p>
+<ol>
+<li><code>Document doc = builder.newDocument();</code></li>
+<li><code>Element rootElement = doc.createElement(rootName);</code></li>
+<li><code>Element childElement = doc.createElement(childName);</code></li>
+<li><code>Text textNode = doc.createTextNode(textContents);</code></li>
+<li><code>doc.appendChild(rootElement);</code></li>
+<li><code>rootElement.appendChild(childElement);</code></li>
+<li><code>childElement.appendChild(textNode);</code></li>
+<li><code>rootElement.setAttribute(name, value);</code></li>
+</ol>
+<p>但是DOM API目前还不支持DOM树写到输出流，需要使用可扩展的格式页转换（XSLT) API</p>
+<ol>
+<li><code>//construct the &quot;do nothing&quot; transformation</code></li>
+<li><code>Transformer t =  TransformerFactory.newInstance().newTransformer();</code></li>
+<li><code>//set output properties to get a DOCTYPE node</code></li>
+<li><code>t.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, systemIdentifier);</code></li>
+<li><code>t.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, publicIdentifier);</code></li>
+<li><code>//set indentation</code></li>
+<li><code>t.setOutputProperty(OutputKeys.INDENT,  &quot;yes&quot;);</code></li>
+<li><code>t.setOutputProperty(OutputKeys.METHOD,  &quot;xml&quot;);</code></li>
+<li><code>//apply the &quot;do nothing&quot; transformation and send the output to a file</code></li>
+<li><code>t.transform(new  DOMSource(doc),  new  StreamResult(new  FileOutputStream(file)));</code></li>
+</ol>
+<p><strong>javax.xml.parsers.DocumentBuilder 1.4</strong></p>
+<ol>
+<li><code>Document newDocument()  //返回一个空文档</code></li>
+</ol>
+<p><strong>org.w3c.dom.Document 1.4</strong></p>
+<ol>
+<li><code>Element createElement(String name)  //返回具有给定名字的元素</code></li>
+<li><code>Text createTextNode(String data)  //返回具有给定数据的文本节点</code></li>
+</ol>
+<p><strong>org.w3c.dom.Node 1.4</strong></p>
+<ol>
+<li><code>Node appendChild(Node child)  //将一个节点附加到该节点的子节点列表，返回该节点</code></li>
+</ol>
+<p><strong>org.w3c.dom.Element 1.4</strong></p>
+<ol>
+<li><code>void setAttribute(String name,  String value)  //将有给定名字的属性设置为指定的值</code></li>
+<li><code>void setAttributeNS(String uri,  String qname,  String value)  //将带有给定命名空间URI和限定名的属性设置为指定的值</code></li>
+</ol>
+<p><strong>javax.xml.transform.TransformerFactory 1.4</strong></p>
+<ol>
+<li><code>static  TransformerFactory newInstance()  //返回TransformerFactory类的一个实例</code></li>
+<li><code>transformer newTransformer()  //返回Transformer类的一个实例，带有标识符或“无操作”的转换</code></li>
+</ol>
+<p><strong>javax.xml.transform.Transformer 1.4</strong></p>
+<ol>
+<li><code>void setOutputProperty(String name,  String value)  //设置输出属性</code></li>
+<li><code>void transform(Source from,  Result to)  //转换一个XML文档</code></li>
+</ol>
+<p><strong>javax.xml.transform.dom.DOMSource 1.4</strong></p>
+<ol>
+<li><code>DOMSource(Node n)  //根据指定的节点构建一个源。通常，n是文档节点</code></li>
+</ol>
+<p><strong>javax.xml.transform.stream.StreamResult 1.4</strong></p>
+<ol>
+<li><code>StreamResult(File f)</code></li>
+<li><code>StreamResult(OutputStream out)</code></li>
+<li><code>StreamResult(Writer out)</code></li>
+<li><code>StreamResult(String systemID)根据文件、流、写入程序或系统ID（通常是相对或绝对URL）来构建数据流结果</code></li>
+</ol>
+<p>使用StAX写XML文档</p>
+<ol>
+<li><code>XMLOutputFactory factory =  XMLOutputFactory.newInstance();</code></li>
+<li><code>XMLStreamWriter writer = factory.createXMLStreamWriter(out);</code></li>
+<li><code>writer.writeStartDocument();</code></li>
+<li><code>writer.writeStartElement(name);</code></li>
+<li><code>writer.writeAttribute(name, value);</code></li>
+<li><code>writer.writeCharacters(text);</code></li>
+<li><code>writer.writeEndElement();</code></li>
+<li><code>writer.writeEmptyElement(name);</code></li>
+<li><code>writer.writeEndDocument();</code></li>
+</ol>
+<p><strong>javax.xml.stream.XMLOutputFactory 6.</strong></p>
+<ol>
+<li><code>static  XMLOutputFactory newInstance()  //返回这个XMLOutputFactory类的一个实例</code></li>
+<li><code>XMLStreamWriter createXMLStreamWriter(OutputStream in)</code></li>
+<li><code>XMLStreamWriter createXMLStreamWriter(OutputStream in,  String characterEncoding)</code></li>
+<li><code>XMLStreamWriter createXMLStreamWriter(Writer in)</code></li>
+<li><code>XMLStreamWriter createXMLStreamWriter(Result in)  //创建写入给定流、写出器和JAXP结果的写出器</code></li>
+</ol>
+<p><strong>javax.xml.stream.XMLStreamWriter 6</strong></p>
+<ol>
+<li><code>void writeStartDocument()</code></li>
+<li><code>void writeStartDocument(String xmlVersion)</code></li>
+<li><code>void writeStartDocument(String encoding,  String xmlVersion)  //在文档的顶部写入XML处理指令</code></li>
+<li><code>void setDefaultNamespace(String namespaceURI)</code></li>
+<li><code>void setPrefix(String prefix,  String namespaceURI)</code></li>
+<li><code>设置默认的命名空间，或具有前缀的命名空间，作用域仅为当前元素</code></li>
+<li><code>void writeStartElement(String localName)</code></li>
+<li><code>void writeStartElement(String namespaceURI,  String localName)  //写出一个开始标签，其中namespaceURI将用相关联的前缀来代替</code></li>
+<li><code>void writeEndElement()  //关闭当前元素</code></li>
+<li><code>void writeEndDocument()  //关闭所有打开的元素</code></li>
+<li><code>void writeEmptyElement(String localName)</code></li>
+<li><code>void writeEmptyElement(String namespaceURI,  String localName)  //写出一个自闭合的标签</code></li>
+<li><code>void writeAttribute(String localName,  String value)</code></li>
+<li><code>void writeAttribute(String namespaceURI,  String localName,  String value)  //写出一个用于当前元素的属性</code></li>
+<li><code>void writeCharacters(String text)  //写出字符数据</code></li>
+<li><code>void writeCData(String text)  //写出CDATA块</code></li>
+<li><code>void writeDTD(String dtd)  //写出dtd字符串，该字串需要包含一个DOCTYPE声明</code></li>
+<li><code>void writeComment(String comment)  //写出一个注释</code></li>
+<li><code>void close()  //关闭这个写出器</code></li>
+</ol>
+<p><strong>XSL转换（XSLT）</strong></p>
+<p>典型模板：</p>
+<pre><code>&lt;xsl:template match=&quot;/staff/employee&quot;&gt;
+  &lt;tr&gt;&lt;xsl:apply-templates/&gt;&lt;/tr&gt;
+&lt;/xsl:template&gt;
+</code></pre><p>处理属性值：</p>
+<pre><code>&lt;xsl:template match=&quot;/staff/employee/hiredate&quot;&gt;
+  &lt;td&gt;&lt;xsl:value-of select=&quot;@year&quot;/&gt;-&lt;xsl:value-of select=&quot;@month&quot;/&gt;-&lt;xsl:value-of select=&quot;@day&quot;/&gt;&lt;/td&gt;
+&lt;/xsl:template&gt;
+</code></pre><p>实现XML转换</p>
+<ol>
+<li><code>File styleSheet =  new  File(filename);</code></li>
+<li><code>StreamSource styleSource =  new  StreamSource(styleSheet);</code></li>
+<li><code>Transformer t =  TransformerFactory.newInstance().newTransformer(styleSource);</code></li>
+<li><code>t.transform(source, result);</code></li>
+</ol>
+<p>Source接口有3个实现类：DOMSource, SAXSource, StreamSource</p>
+<p>Result接口有3个实现类：DOMResult，SAXResult，StreamResult</p>
+<p><strong>javax.xml.transform.TransformerFactory 1.4</strong></p>
+<ol>
+<li><code>transformer newTransformer(Source stylesheet)  //返回一个transformer类的实例，用来从指定的源中读取样式表</code></li>
+</ol>
+<p><strong>javax.xml.transform.stream.StreamSource 1.4</strong></p>
+<ol>
+<li><code>StreamSource(File f)</code></li>
+<li><code>StreamSource(InputStream in)</code></li>
+<li><code>StreamSource(Reader in)</code></li>
+<li><code>StreamSource(String stystemID)  //根据一个文件、流、阅读器或系统ID（通常是相对或绝对URL）来构建一个数据流源</code></li>
+</ol>
+<p><strong>javax.xml.transform.sax.SAXSource 1.4</strong></p>
+<ol>
+<li><code>SAXSource(XMLReader reader,  InputSource source)  //构建一个SAX数据源，以便从给定输入源获取数据，并使用给定的阅读器来解析输入数据</code></li>
+</ol>
+<p><strong>org.xml.sax.XMLReader 1.4</strong></p>
+<ol>
+<li><code>void setContentHandler(ContentHandler handler)  //设置在输入被解析时会被告知解析事件的处理器</code></li>
+<li><code>void parse(InputSource source)  //根据给定输入源解析输入数据，并将解析事件发送到内容处理器</code></li>
+</ol>
+<p><strong>javax.xml.transform.dom.DOMResult 1.4</strong></p>
+<ol>
+<li><code>DOMResult(Node n)  //根据给定结点构建一个数据源，通常n是一个新文档节点</code></li>
+</ol>
+<p><strong>org.xml.sax.helpers.AttributesImpl 1.4</strong></p>
+<ol>
+<li><code>void addAtrribute(String uri,  String lname,  String qname,  String type,  String value)  //将一个属性添加到该属性集合</code></li>
+<li><code>void clear()  //删除属性集合中的所有属性</code></li>
+</ol>
+<p><strong>第三章–网络———————————————-</strong></p>
+<p><strong>套接字Socket</strong></p>
+<p>套接字超时设置</p>
+<p><strong>java.net.Socket 1.0</strong></p>
+<ol>
+<li><code>Socket(String host,  int port)  //构建一个套接字，用来连接给定的主机和端口</code></li>
+<li><code>InputStream getInputStream()</code></li>
+<li><code>OutputStream getOutputStream()  //获取可以从套接字中读取数据的流，以及可以向套接字写出数据的流</code></li>
+<li><code>Socket()  //创建一个还未被连接的套接字</code></li>
+<li><code>void connect(SocketAddress address)  //将该套接字连接到给定的地址</code></li>
+<li><code>void connect(SocketAddress address,  int timeoutInMilliSeconds)  //将套接字连接到给定的地址，如果在给定的时间内没有响应，则返回</code></li>
+<li><code>void setSoTimeout(int timeoutInMilliseconds)  //设置该套接字上读请求的阻塞时间，如果超出时间，则抛出一个InterruptedIOException异常</code></li>
+<li><code>boolean isConnected()  //如果该套接字已被连接，则返回true</code></li>
+<li><code>boolean isClosed()  //如果该套接字已被关闭，返回true</code></li>
+</ol>
+<p>因特网地址</p>
+<ol>
+<li><code>InetAddress address =  InetAddress.getByName(&quot;time-A.timefreq.bldrdoc.gov&quot;);</code></li>
+<li><code>byte[] addressBytes = address.getAddress();</code></li>
+</ol>
+<p><strong>java.net.InetAddress 1.0</strong></p>
+<ol>
+<li><code>static  InetAddress getByName(String host)</code></li>
+<li><code>static  InetAddress[] getAllByName(String host)  //为给定的主机名，创建一个InetAddress对象，或者一个包含了该主机名所对应的所有因特网地址的数组</code></li>
+<li><code>static  InetAddress getLocalHost()  //为本地主机创建一个InetAddress对象</code></li>
+<li><code>byte[] getAddress()  //返回一个包含数字型地址的字节数组</code></li>
+<li><code>String getHostAddress()  //返回一个由十进制数组成的字符串，各数字间用圆点符号隔开</code></li>
+<li><code>String getHostName()  //返回主机名</code></li>
+</ol>
+<p><strong>实现服务器</strong></p>
+<ol>
+<li><code>ServerSocket s =  new  ServerSocket(8189);</code></li>
+<li><code>Socket incoming = s.accept();</code></li>
+<li><code>InputStream inStream = incoming.getInputStream();</code></li>
+<li><code>OutputStream outStream = incoming.getOutputStream();</code></li>
+<li><code>Scanner in =  new  Scanner(inStream);</code></li>
+<li><code>PrintWriter out =  new  PrintWriter(outStream,  true  /* autoFlush */);</code></li>
+<li><code>out.println(&quot;Hello!Enter BYE to exit.“);</code></li>
+<li><code>String line = in.nextLine();</code></li>
+<li><code>out.println(&quot;Echo:&quot;  + line);</code></li>
+<li><code>if  (line.trim().equals(&quot;BYE&quot;)) done =  true;</code></li>
+<li><code>incoming.close();</code></li>
+</ol>
+<p><strong>java.net.ServerSocket 1.0</strong></p>
+<ol>
+<li><code>ServerSocket(int port)  //创建一个监控端口的服务器套接字</code></li>
+<li><code>Socket accept()  //等待连接，阻塞当前线程直到建立连接为止</code></li>
+<li><code>void close()  //关闭服务器套接字</code></li>
+</ol>
+<p>为多个客户端服务</p>
+<ol>
+<li><code>while  (true)  {</code></li>
+<li><code>Socket incoming = s.accept();</code></li>
+<li><code>Runnable r =  new  ThreadedEchoHandler(incoming);</code></li>
+<li><code>Thread t =  new  Thread(r);</code></li>
+<li><code>t.start();</code></li>
+<li><code>}</code></li>
+</ol>
+<p>半关闭</p>
+<p><strong>java.net.Socket 1.0</strong></p>
+<ol>
+<li><code>void shutdownOutput()  //将输出流设为“流结束”</code></li>
+<li><code>void shutdownInput()  //将输入流设为“流结束”</code></li>
+<li><code>boolean isOutputShutdown()  //如果输出已被关闭返回true</code></li>
+<li><code>boolean isInputShutdown()  //如果输入已被关闭，返回true</code></li>
+</ol>
+<p><strong>可中断套接字</strong></p>
+<p>java.nio包的特性：SocketChannel类，通道（channel)没有相关联的流，需要调用Buffer对象来实现ReadableByteChannel和WritableByteChannel接口声明的read和write方法</p>
+<ol>
+<li><code>SocketChannel channel =  SocketChannel.open(new  InetSocketAddress(host, port));</code></li>
+<li><code>Scanner in =  new  Scanner(channel);</code></li>
+<li><code>OutputStream outStream =  Channels.newOutputStream(channel);</code></li>
+</ol>
+<p>如果线程发生中断，不会阻塞，而是会抛出异常</p>
+<p><strong>java.net.InetSocketAddress 1.4</strong></p>
+<ol>
+<li><code>InetSocketAddress(String hostname,  int port)  //通过主机和端口参数创建一个地址对象，并在创建过程中解析主机名，如果主机名不能被解析，那么该地址对象的unresolved属性被设为true</code></li>
+<li><code>boolean isUnresolved()  //如果不能解析该地址对象，返回true</code></li>
+</ol>
+<p><strong>java.nio.channels.SocketChannel 1.4</strong></p>
+<ol>
+<li><code>static  SocketChannel open(SocketAddress address)  //打开一个套接字通道，并将其连接到远程地址</code></li>
+</ol>
+<p><strong>java.nio.channels.Channels 1.4</strong></p>
+<ol>
+<li><code>static  InputStream newInputStream(ReadableByteChannel channel)  //创建一个输入流，用以从指定的通道读取数据</code></li>
+<li><code>static  OutputStream newOutputStream(WritableByteChannel channel)  //创建一个输出流，用以向指定的通道写入数据</code></li>
+</ol>
+<p><strong>发送E-mail</strong></p>
+<ol>
+<li><code>Socket s =  new  Socket(&quot;mail.yourserver.com&quot;,  25);</code></li>
+<li><code>PrintWriter out =  new  PrintWriter(s.getOutputStream));</code></li>
+</ol>
+<p>信息规范：</p>
+<pre><code>HELO sending host
+MAIL FROM: &lt;sender e-mail address&gt;
+RCPT TO: &lt;recipient e-mail address&gt;
+DATA
+mail message
+(any number of lines)
+.
+QUIT
+</code></pre><p>SMTP规范规定，每一行都要以\r再紧跟一个\n来结尾</p>
+<p><strong>建议URL连接</strong></p>
+<p>URL和URI</p>
+<ol>
+<li><code>URL url =  new URL(urlString);</code></li>
+<li><code>InputStream inStream = url.openStream();</code></li>
+<li><code>Scanner in =  new  Scanner(inStream);</code></li>
+</ol>
+<p>URI句法：</p>
+<p>[scheme:]schemeSpecificPart[#fragment]</p>
+<p>一个分层URI的schemeSpecificPart具有以下结构：</p>
+<p>[//authority][path][?query]</p>
+<p>对基于服务器的URI，authority部分采用以下形式：</p>
+<p>[user-info@]host[:port]</p>
+<ol>
+<li><code>relative = base.relativize(combined);</code></li>
+<li><code>combined = base.resolve(relative);</code></li>
+</ol>
+<p>使用URLConnection获取信息</p>
+<p>1. 调用URL类中的openConnection方法获得URLConnection对象</p>
+<ol>
+<li><code>URLConnection connection = url.openConnection()</code></li>
+</ol>
+<p>2. 使用以下方法来设置任意的请求属性</p>
+<ol>
+<li><code>setDoInput</code></li>
+<li><code>setDoOutput</code></li>
+<li><code>setIfModifiedSince</code></li>
+<li><code>setUseCaches</code></li>
+<li><code>setAllowUserInteraction</code></li>
+<li><code>setRequestProperty</code></li>
+<li><code>setConnectTimeout</code></li>
+<li><code>setReadTimeout</code></li>
+</ol>
+<p>3. 调用connect方法连接远程资源</p>
+<ol>
+<li><code>connection.connect();</code></li>
+</ol>
+<p>4. 建立连接后，可以查询头信息</p>
+<ol>
+<li><code>getContentType</code></li>
+<li><code>getContentLength</code></li>
+<li><code>getContentEncoding</code></li>
+<li><code>getDate</code></li>
+<li><code>getExpiration</code></li>
+<li><code>getLastModified</code></li>
+</ol>
+<p>5. 访问资源数据</p>
+<ol>
+<li><code>getInputStream</code></li>
+</ol>
+<p>setRequestProperty方法，设置“名-值”对</p>
+<ol>
+<li><code>String input = username +  &quot;:&quot;  + password;</code></li>
+<li><code>String encoding = base64Encode(input);</code></li>
+<li><code>connection.setRequestProperty(&quot;Authorization&quot;,  &quot;Basic &quot;  + encoding);</code></li>
+</ol>
+<p><strong>java.net.URL 1.0</strong></p>
+<ol>
+<li><code>InputStream openStream()  //打开一个用于读取资源数据的输入流</code></li>
+<li><code>URLConnection openConnection()  //返回一个URLConnection对象，该对象负责管理与资源之间的连接</code></li>
+</ol>
+<p><strong>java.net.URLConnection 1.0</strong></p>
+<ol>
+<li><code>void setDoInput()  //如果doInput为true，那么用户可以接收来自该URLConnection的输入</code></li>
+<li><code>void setDoOutput(boolean doOutput)</code></li>
+<li><code>boolean getDoOutput(boolean doOutput)  //如果doOutput为true，那么用户可以将输出发送到该URLConnection</code></li>
+<li><code>void setIfModifiedSince(long time)</code></li>
+<li><code>long getIfModifiedSince()  //属性ifModifiedSince用于配置URLConnection对象，使它只获取那些自从某个给定时间以来被修改过的数据</code></li>
+<li><code>void setUseCaches(boolean useCaches)</code></li>
+<li><code>boolean getUseCaches()  //如果useCaches为true，那么数据可以从本地缓存中得到，URLConnection本身并不维护这个缓存，缓存必须由浏览器之类的外部程序提供</code></li>
+<li><code>void setAllowUserInteraction(boolean allowUserInteraction)</code></li>
+<li><code>boolean getAllowUserInteraction()  //如果为true，那么可以查询用户的口令</code></li>
+<li><code>void setConnectTimeout(int timeout)</code></li>
+<li><code>int getConnectionTimeout()  //设置或得到连接超时时限</code></li>
+<li><code>void setRequestProperty(String key,  String value)  //设置请求头的一个字段</code></li>
+<li><code>Map&lt;String,  List&lt;String&gt;&gt; getRequestProperties()  //返回请求头属性的一个映射表，相同的键对应的所有值被放置在同一个映射表中</code></li>
+<li><code>void connect()  //连接远程资源并获取响应头信息</code></li>
+<li><code>Map&lt;String,  List&lt;String&gt;&gt;  Map getHeaderFields()  //返回响应的一个映射表，相同的键对应的所有值被放置在同一个映射表中</code></li>
+<li><code>String getHeaderFieldKey(int n)  //得到响应头第n个字段的键，如果n等于0或大于响应头字段的总数返回null值</code></li>
+<li><code>String getHeaderField(int n)  //得到响应头第n个字段的值</code></li>
+<li><code>int getContentLength()  //如果知道内容长度，则返回该长度值，否则返回-1</code></li>
+<li><code>String getContentType()  //获取内容的类型，比如text/plain或image/gif</code></li>
+<li><code>String getContentEncoding()  //获取内容的编码，比如gzip</code></li>
+<li><code>long getDate()</code></li>
+<li><code>long getExpiration()</code></li>
+<li><code>long getLastModified()  //获取创建日期、过期日以及最后一次被修改的日期</code></li>
+<li><code>InputStream getInputStream()</code></li>
+<li><code>OutputStream getOutputStream()  //返回从资源读取信息或向资源写入信息的流</code></li>
+<li><code>Object getContent()  //选择适当的内容处理器，以便读取资源数据并将它转换成对象。该方法不能用于读取诸如text/plain或image/gif之类的标准内容类型，除非安装了自己的内容处理器</code></li>
+</ol>
+<p><strong>提交表单数据</strong></p>
+<p>GET和POST命令，向Web服务器发送信息</p>
+<p>URL编码模式编码，参数规则：</p>
+<p>保留字符A-Z、a-z、0-9以及 . - * _</p>
+<p>用+字符替换所有的空格</p>
+<p>将其他所有字符编码为UTF-8，并将每个字节都编码为%后面紧跟一个两位的十六进制数字</p>
+<p>使用POST命令的方法：</p>
+<ol>
+<li><code>URL url =  new URL(&quot;http://host/script&quot;);</code></li>
+<li><code>URLConnection connection = url.openConnection();</code></li>
+<li><code>connection.setDoOutput(true);</code></li>
+<li><code>PrintWriter out =  new  PrintWriter(connection.getOutputStream());</code></li>
+<li><code>out.print(name1 +  &quot;=&quot;  +  URLEncoder.encode(value1,  &quot;UTF-8&quot;)  +  &quot;&amp;&quot;);</code></li>
+<li><code>out.print(name2 +  &quot;=&quot;  +  URLEncoder.encode(value2,  &quot;UTF-8&quot;));</code></li>
+<li><code>out.close();</code></li>
+</ol>
+<p><strong>java.net.HttpURLConnection 1.0</strong></p>
+<ol>
+<li><code>InputStream getErrorStream()  //返回一个流，通过这个流可以读取Web服务器的错误信息</code></li>
+</ol>
+<p><strong>java.net.URLEncoder 1.0</strong></p>
+<ol>
+<li><code>static  String encode(String s,  String encoding)  //采用指定的字符编码模式对字符串s进行编码，并返回它的URL编码形式</code></li>
+</ol>
+<p><strong>java.net.URLDecoder 1.2</strong></p>
+<ol>
+<li><code>static  String decode(String s,  String encoding)  //采用指定编码模式对已编码字符串s进行解码，并返回结果</code></li>
+</ol>
+<p><strong>第三章–数据库编程———————————————-</strong></p>
+<p><strong>JDBC的典型用法</strong></p>
+<p>客户端（可视化表示） —HTTP、RMI—&gt; 中间层（业务逻辑） —JDBC-数据库协议-&gt;数据库服务器 </p>
+<p>JDBC URL一般语法：</p>
+<p>jdbc:subprotocol:other stuff</p>
+<p>注册驱动器类</p>
+<p>Class.forName(“org.postgresql.Driver”);</p>
+<p>或者</p>
+<p>java -Djdbc.drivers=org.postgresql.Driver <em>ProgramName</em></p>
+<p>或者</p>
+<p>System.setProperty(“jdbc.drivers”, “org.postgresql.Driver”);</p>
+<p>连接到数据库</p>
+<ol>
+<li><code>String url =  &quot;jdbc:postgresql:COREJAVA&quot;;</code></li>
+<li><code>String username =  &quot;dbuser&quot;;</code></li>
+<li><code>String password =  &quot;scret&quot;;</code></li>
+<li><code>Connection conn =  DriverManager.getConnection(url, username, password);</code></li>
+</ol>
+<p><strong>java.sql.DriverManager 1.1</strong></p>
+<ol>
+<li><code>static  Connection getConnection(String url,  String user,  String password)  //建立一个到指定数据库的连接，并返回一个Connection对象</code></li>
+</ol>
+<p><strong>执行SQL语句</strong></p>
+<p><strong>java.sql.Connection 1.1</strong></p>
+<ol>
+<li><code>Statement createStatement()  //创建一个Statement对象，用以执行不带参数的SQL查询和更新</code></li>
+<li><code>void close()  //用于立即关闭当前的连接以及释放由它所创建的JDBC资源</code></li>
+</ol>
+<p><strong>java.sql.Statement 1.1</strong></p>
+<ol>
+<li><code>ResultSet executeQuery(String sqlQuery)  //执行给定字符串中的SQL语句，并返回一个用于查看查询结果的ResultSet对象</code></li>
+<li><code>int executeUpdate(String sqlStatement)  //执行字符串中指定的INSERT、UPDATE或DELETE等SQL语句，也可以执行CREATE TABLE等语句，返回受影响的记录总数</code></li>
+<li><code>boolean execute(String sqlStatement)  //执行字符串中指定的SQL语句，可能会产生多个结果集和更新数。如果第一个执行结果是结果集，则返回true，反之返回false。调用getResultSet或getUpdateCount方法可以得到第一个执行结果</code></li>
+<li><code>ResultSet getResultSet()  //返回前一条查询语句的结果集，如果前一条语句未产生结果集则返回null值，对于每一条执行过的语句，该方法只能被调用一次</code></li>
+<li><code>void close()  //关闭Statement对象以及它所对应的结果集</code></li>
+<li><code>boolean isClosed()  //如果语句被关闭返回true</code></li>
+</ol>
+<p><strong>java.sql.ResultSet 1.1</strong></p>
+<ol>
+<li><code>boolean next()  //将结果集中的当前行向前移动一行。如果已经到达最后一行的后面，返回false，注意初始情况必须调用该方法才能转到第一行</code></li>
+<li><code>Xxx getXxx(int columnNumber)</code></li>
+<li><code>Xxx getXxx(String columnName)  //用给定的列序号或列标签返回该列的值，并将之转换成指定类型</code></li>
+<li><code>int findColumn(String columnName)  //根据给定的列名，返回该列的序号</code></li>
+<li><code>void close()  //立即关闭当前的结果集</code></li>
+<li><code>boolean isClosed()  //如果语句被关闭，则返回true</code></li>
+</ol>
+<p>管理连接、语句和结果集</p>
+<p>分析SQL异常</p>
+<p>每个SQLException都有一个由多个SQLException对象构成的链，这些对象可以通过getNextException方法获取</p>
+<p><strong>java.sql.SQLException 1.1</strong></p>
+<ol>
+<li><code>SQLException getNextException()  //返回链接到该SQL异常的下一个SQL异常，或者在到达链尾时返回null</code></li>
+<li><code>Iterator&lt;Throwable&gt; iterator()  //获取迭代器，可以迭代链接的SQL异常和它们的成因</code></li>
+<li><code>String getSQLState()  //获取“SQL状态”，即标准化的错误代码</code></li>
+<li><code>int getErrorCode()  //获取提供商相关的错误代码</code></li>
+</ol>
+<p><strong>java.sql.Warning 1.1</strong></p>
+<ol>
+<li><code>SQLWarning getNextWarning()  //返回链接到该警告的下一个警告，或者在到达链尾时返回null</code></li>
+</ol>
+<p><strong>java.sql.Connection 1.1</strong></p>
+<p><strong>java.sql.Statement 1.1</strong></p>
+<p><strong>java.sql.ResultSet 1.1</strong></p>
+<ol>
+<li><code>QLWarning getWarnings()</code></li>
+<li><code>SQLWarning getWarnings()  //返回未处理警告中的第一个，或者在没有未处理警告时返回null</code></li>
+</ol>
+<p><strong>java.sql.DataTruncation 1.1</strong></p>
+<ol>
+<li><code>boolean getParameter()  //如果在参数上进行了数据截断，则返回true，如果在列上进行了数据截断返回false</code></li>
+<li><code>int getIndex()  //返回被截断的参数和列的索引</code></li>
+<li><code>int getDataSize()  //返回应该被传输的字节数量，或者在该值未知的情况下返回-1</code></li>
+<li><code>int getTransferSize()  //返回实际被传输的字节数量，或者在该值未知的情况下返回-1</code></li>
+</ol>
+<p>元数据</p>
+<ol>
+<li><code>ResultSet result = stat.getResultSet();</code></li>
+<li><code>ResultSetMetaData metaData = result.getMetaData();</code></li>
+<li><code>int columnCount = metaData.getColumnCount();</code></li>
+<li><code>metaData.getColumnLabel(i);</code></li>
+</ol>
+<p>预备语句</p>
+<p>占位符?</p>
+<ol>
+<li><code>PreparedStatement  PublisherQueryStat  = conn.prepareStatement(publisherQuery);</code></li>
+<li><code>publisherQueryStat.setString(1, publisher);</code></li>
+<li><code>ResultSet rs = publisherQueryStat.executeQuery();</code></li>
+</ol>
+<p><strong>java.sql.Connection 1.1</strong></p>
+<ol>
+<li><code>PreparedStatement prepareStatement(String sql)  //返回一个含预编译语句的PreparedStatement对象</code></li>
+</ol>
+<p><strong>java.sql.PreparedStatement 1.1</strong></p>
+<ol>
+<li><code>void setXxx(int n,  Xxx x)  //设置第n个参数值为x</code></li>
+<li><code>void clearParameters()  //清除预备语句中的所有当前参数</code></li>
+<li><code>ResultSet executeQuery()  //执行预备SQL查询，并返回一个ResultSet对象</code></li>
+<li><code>int executeUpdate()  //执行预备SQL语句INSERT UPDATE或DELETE，返回受影响的记录数，如果执行CREATE TABLE,返回0</code></li>
+</ol>
+<p>读写LOB</p>
+<p>二进制大对象称为BLOB，字符型大对象称为CLOB</p>
+<p>获取一张图像：</p>
+<ol>
+<li><p>PreparedStatement stat = conn.preapareStatement(“SELECT Cover FROM BookCovers WHERE ISBN=?”);</p>
+</li>
+<li><p><code>stat.set(1, isbn);</code></p>
+</li>
+<li><code>ResultSet result = stat.executeQuery();</code></li>
+<li><code>if  (result.next())  {</code></li>
+<li><code>Blob coverBlob = result.getBlob(1);</code></li>
+<li><code>Image coverImage =  ImageIO.read(coverBlob.getInputstream());</code></li>
+<li><code>}</code></li>
+</ol>
+<p>存储一张图像：</p>
+<ol>
+<li><code>Blob coverBlob = connection.createBlob();</code></li>
+<li><code>int offset =  0;</code></li>
+<li><code>OutputStream out = coverBlob.setBinaryStream(offset);</code></li>
+<li><code>ImageIO.write(coverImage,  &quot;PNG&quot;, out);</code></li>
+<li><code>PreparedStatement stat = conn.prepareStatement(&quot;INSET INTO Cover VALUES (?, ?)&quot;);</code></li>
+<li><code>stat.set(1, isbn);</code></li>
+<li><code>stat.set(2, coverBlob);</code></li>
+<li><code>stat.executeUpdate();</code></li>
+</ol>
+<p><strong>java.sql.ResultSet 1.1</strong></p>
+<ol>
+<li><code>Blob getBlob(int columnIndex)</code></li>
+<li><code>Blob getBlob(String columnLabel)</code></li>
+<li><code>Clob getClob(int columnIndex)</code></li>
+<li><code>Clob getClob(String columnLabel)  //获取给定列的BLOB或CLOB</code></li>
+</ol>
+<p><strong>java.sql.Blob 1.2</strong></p>
+<ol>
+<li><code>long length()  //获取该BLOB的长度</code></li>
+<li><code>byte[] getBytes(long startPosition,  long length)  //获取该BLOB中给定范围的数据</code></li>
+<li><code>InputStream getBinaryStream()</code></li>
+<li><code>InputStream getBinaryStream(long startPosition,  long length)  //返回一个输入流，用于读取该BLOB中全部或给定范围的数据</code></li>
+<li><code>OutputStream setBinaryStream(long startPosition)  //返回一个输出流，用于从给定位置开始写入该BLOB</code></li>
+</ol>
+<p><strong>java.sql.Clob 1.4</strong></p>
+<ol>
+<li><code>long length()  //获取该CLOB中的字符总数</code></li>
+<li><code>String getSubString(long startPosition,  long length)  //获取该CLOB中给定范围的字符</code></li>
+<li><code>Reader getCharacterStream()</code></li>
+<li><code>Reader getCharacterStream(long startPosition,  long length)  //返回一个读入器（而不是流），用于读取CLOB中全部或给定范围的数据</code></li>
+<li><code>Writer setCharacterStream(long startPosition)  //返回一个写出器（而不是流），用于从给定位置开始写入该CLOB</code></li>
+</ol>
+<p><strong>java.sql.Connection 1.1</strong></p>
+<ol>
+<li><code>Blob createBlob()</code></li>
+<li><code>Clob createClob()  //创建一个空的BLOB或CLOB</code></li>
+</ol>
+<p>SQL转义</p>
+<p>转义主要用于下列特性：</p>
+<p>日期和时间字面常量</p>
+<p>调用标量函数</p>
+<p>调用存储过程</p>
+<p>外连接</p>
+<p>在LIKE子句中的转义字符</p>
+<p>多结果集</p>
+<p>遍历execute所有结果：</p>
+<ol>
+<li><code>boolean done =  false;</code></li>
+<li><code>boolean isResult = stmt.execute(command);</code></li>
+<li><code>while  (!done)  {</code></li>
+<li><code>if  (isResult)  {</code></li>
+<li><code>ResultSet result = stmt.getResultSet();</code></li>
+<li><code>do something with result</code></li>
+<li><code>}  else  {</code></li>
+<li><code>int updateCount = stmt.getUpdateCount();</code></li>
+<li><code>if  (updateCount &gt;=  0)</code></li>
+<li><code>do something with updateCount</code></li>
+<li><code>else</code></li>
+<li><code>done =  true;</code></li>
+<li><code>}</code></li>
+<li><code>isResult = stmt.getMoreResults();</code></li>
+<li><code>}</code></li>
+</ol>
+<p><strong>java.sql.Statement 1.1</strong></p>
+<ol>
+<li><code>boolean getMoreResults()  //获取该语句的下一个结果集，如果存在返回true</code></li>
+</ol>
+<p>获取自动生成键</p>
+<ol>
+<li><code>stmt.executeUpdate(insertStatement,  Statement.RETURN_GENERATED_KEYS);</code></li>
+<li><code>ResultSet rs = stmt.getGeneratedKeys();</code></li>
+<li><code>if  (rs.next())  {</code></li>
+<li><code>int key = rs.getInt(1);</code></li>
+<li><code>...</code></li>
+<li><code>}</code></li>
+</ol>
+<p><strong>java.sql.Statement 1.1</strong></p>
+<ol>
+<li><code>boolean execute(String statement,  int autogenerated)</code></li>
+<li><code>int executeUpdate(String statement,  int autogenerated)  //如果autogenerated被设置为Statement.RETURN_GENERATED_KEYS，并且该语句是一条INSERT语句，那么第一列中就是自动生成的键</code></li>
+</ol>
+<p><strong>可滚动和可更新的结果集</strong></p>
+<ol>
+<li><code>Statement stat = conn.createStatement(type, concurrency);</code></li>
+<li><code>PreparedStatement stat = conn.prepareStatement(command, type, concurrency);</code></li>
+</ol>
+<p>ResultSet类的type值</p>
+<p>| TYPE_FORWARD_ONLY | 结果集不能滚动 |<br>| TYPE_SCROLL_INSENSITIVE | 结果集可以滚动，但对数据库变化不敏感 |<br>| TYPE_SCROLL_SENSITIVE | 结果集可以滚动，且对数据库变化敏感 |</p>
+<p>ResultSet类的Concurrency值</p>
+<p>| CONCUR_READ_ONLY | 结果集不能用于更新数据库 |<br>| CONCUR_UPDATE | 结果集可以用于更新数据库 |</p>
+<p>需要用getType和getConcurrency方法先检查结果集的功能再使用，否则可能抛出SQLException异常</p>
+<p>在结果集上的滚动</p>
+<ol>
+<li><code>if  (rs.previous())  ...</code></li>
+</ol>
+<p>将游标向后或向前移动多行</p>
+<ol>
+<li><code>rs.relative(n);</code></li>
+</ol>
+<p>将游标设置到指定的行号上</p>
+<ol>
+<li><code>rs.absolute(n);</code></li>
+<li><code>int currentRow = rs.getRow();</code></li>
+</ol>
+<p>获得可更新的结果集</p>
+<ol>
+<li><code>Statement stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,  ResultSet.CONCUR_UPDATABLE);</code></li>
+</ol>
+<p>迭代遍历所有结果并更新相关内容</p>
+<ol>
+<li><code>String query =  &quot;SELECT * FROM Books&quot;;</code></li>
+<li><code>ResultSet rs = stat.executeQuery(query);</code></li>
+<li><code>while  (rs.next())  {</code></li>
+<li><code>if  (...)  {</code></li>
+<li><code>double increase =  ...</code></li>
+<li><code>double price = rs.getDouble(&quot;Price&quot;);</code></li>
+<li><code>rs.updateDouble(&quot;Price&quot;, price + increase);</code></li>
+<li><code>rs.updateRow();</code></li>
+<li><code>}</code></li>
+<li><code>}</code></li>
+</ol>
+<p>添加新行</p>
+<ol>
+<li><code>rs.moveToInsertRow();</code></li>
+<li><code>rs.updateString(&quot;Title&quot;, title);</code></li>
+<li><code>rs.updateString(&quot;ISBN&quot;, isbn);</code></li>
+<li><code>rs.updateString(&quot;Publisher_Id&quot;, pubid);</code></li>
+<li><code>rs.updateDouble(&quot;Price&quot;, price);</code></li>
+<li><code>rs.insertRow();</code></li>
+<li><code>rs.moveToCurrentRow();</code></li>
+</ol>
+<p>删除行</p>
+<ol>
+<li><code>rs.deleteRow();</code></li>
+</ol>
+<p><strong>java.sql.Connection 1.1</strong></p>
+<ol>
+<li><code>Statement createStatement(int type,  int concurrency)</code></li>
+<li><code>PreparedStatement prepareStatement(String command,  int type,  int concurrency)  //创建一个语句或预备语句，且该语句可以产生指定类型和并发模式的结果集</code></li>
+</ol>
+<p><strong>java.sql.ResultSet 1.1</strong></p>
+<ol>
+<li><code>int getType()  //返回结果集的类型</code></li>
+<li><code>int getConcurrency()  //返回结果集的并发设置</code></li>
+<li><code>boolean previous()  //把光标移动到前一行</code></li>
+<li><code>int getRow()  //得到当前行的序号</code></li>
+<li><code>boolean absolute(int r)  //移动光标到第r行</code></li>
+<li><code>boolean relative(int d)  //将光标移动d行，如果d为负数，则光标向后移动，如果光标位于某一行上，返回true</code></li>
+<li><code>boolean first()</code></li>
+<li><code>boolean last()  //移动光标到第一行或最后一行</code></li>
+<li><code>void beforeFirst()</code></li>
+<li><code>void afterLast()  //移动光标到第一行之前或最后一行之后的位置</code></li>
+<li><code>boolean isFirst()</code></li>
+<li><code>boolean isLast()  //测试光标是否在第一行或最后一行</code></li>
+<li><code>boolean isBeforeFirst()</code></li>
+<li><code>boolean isAfterLast()  //测试光标是否在第一行之前或最后一行之后的位置</code></li>
+<li><code>void moveToInsertRow()  //移动光标到插入行</code></li>
+<li><code>void moveToCurrentRow()  //将光标从插入行移回到调用moveToInsertRow之前所在那一行</code></li>
+<li><code>void insertRow()  //将插入行上的内容插入到数据库和结果集中</code></li>
+<li><code>void deleteRow()  //从数据库和结果集中删除当前行</code></li>
+<li><code>void updateXxx(int column,  Xxx data)</code></li>
+<li><code>void updateXxx(String columnName,  Xxx data)  //更新结果中当前行上的某个字段值</code></li>
+<li><code>void updateRow()  //将当前行的更新信息发送到数据库</code></li>
+<li><code>void cancelRowUpdates()  //撤销对当前行的更新</code></li>
+</ol>
+<p><strong>java.sql.DatabaseMetaData 1.1</strong></p>
+<ol>
+<li><code>boolean supportsResultSetType(int type)  //如果数据库支持给定类型的结果集，则返回true</code></li>
+<li><code>boolean supportsResultSetConcurrency(int type,  int concurrency)  //如果数据库支持给定类型和并发模式的结果集，则返回true</code></li>
+</ol>
+<p><strong>行集</strong></p>
+<p>CachedRowSet</p>
+<p>WebRowSet</p>
+<p>FilteredRowSet</p>
+<p>JoinRowSet</p>
+<p>JdbcRowSet</p>
+<p>被缓存的行集</p>
+<p>使用一个结果集来填充CachedRowSet对象</p>
+<ol>
+<li><code>ResultSet result =  ...;</code></li>
+<li><code>CachedRowSet crs =  new com.sun.rowset.CachedRowSetImpl();</code></li>
+<li><code>crs.populate(result);</code></li>
+<li><code>conn.close();</code></li>
+</ol>
+<p>或者可以让CachedRowSet对象自动创建一个数据库连接并将查询结果填充到行集，最后断开连接</p>
+<ol>
+<li><code>crs.setURL(&quot;jdbc:derby://localhost:1527/COREJAVA&quot;);</code></li>
+<li><code>crs.setUsername(&quot;dbuser&quot;);</code></li>
+<li><code>crs.setPassword(&quot;secret&quot;);</code></li>
+<li><code>crs.setCommand(&quot;SELECT * FROM Books WHERE PUBLISHER = ?&quot;);</code></li>
+<li><code>crs.setString(1, publisherName);</code></li>
+<li><code>crs.execute();</code></li>
+</ol>
+<p>指定每一页尺寸</p>
+<ol>
+<li><code>CachedRowSet crs =  ...;</code></li>
+<li><code>crs.setCommand(command);</code></li>
+<li><code>crs.setPageSize(20);</code></li>
+<li><code>...</code></li>
+<li><code>crs.execute();</code></li>
+<li><code>crs.nextPage();</code></li>
+</ol>
+<p>将修改写回到数据库中</p>
+<ol>
+<li><code>crs.acceptChanges(conn);</code></li>
+<li><code>或</code></li>
+<li><code>crs.acceptChanges();  //这个方法只有设置连接数据库所需信息才有效</code></li>
+</ol>
+<p><strong>javax.sql.RowSet 1.4</strong></p>
+<ol>
+<li><code>String getURL()</code></li>
+<li><code>void setURL(String url)  //获取或设置数据库的URL</code></li>
+<li><code>String getUsername()</code></li>
+<li><code>void setUsername(String username)  //获取或设置连接数据库所需的用户名</code></li>
+<li><code>String getPassword()</code></li>
+<li><code>void setPassword(String password)  //获取或设置连接数据库所需的密码</code></li>
+<li><code>String getCommand()</code></li>
+<li><code>void setCommand(String command)  //获取或设置向行集中填充数据时需要执行的命令</code></li>
+<li><code>void execute()  //通过执行使用setCommand方法设置的命令集来填充行集。为了使驱动管理器可以获得连接，必须事先设定URL、用户名和密码</code></li>
+</ol>
+<p><strong>javax.sql.rowset.CachedRowSet 5.0</strong></p>
+<ol>
+<li><code>void execute(Connection conn)  //通过执行使用setCommand方法设置的命令集来填充行集，该方法使用给定的连接，并负责关闭它</code></li>
+<li><code>void populate(ResultSet result)  //将指定的结果集中的数据填充到被缓存的行集中</code></li>
+<li><code>String getTableName()</code></li>
+<li><code>void setTableName(String tableName)  //获取或设置数据库表名称，填充被缓存的行集时所需的数据来自于该表</code></li>
+<li><code>int getPageSize()</code></li>
+<li><code>void setPageSize(int size)  //获取和设置页的尺寸</code></li>
+<li><code>boolean nextPage()</code></li>
+<li><code>boolean previousPage()  //加载下一页或上一页，如果要加载的页存在，返回true</code></li>
+<li><code>void acceptChanges()</code></li>
+<li><code>void acceptChanges(Connection conn)  //重新连接数据库，并写回行集中修改过的数据，如果因为数据库中的数据已经被修改而导致无法写回行集中的数据，该方法可能会抛出SyncProviderException异常</code></li>
+</ol>
+<p><strong>元数据</strong></p>
+<p>描述数据库或其组成部分的数据称为元数据</p>
+<p>获取数据库所有表名（第三列是表名）</p>
+<ol>
+<li><code>DatabaseMetaData meta = conn.getMetaData();</code></li>
+<li><code>ResultSet mrs = meta.getTables(null,  null,  null,  new  String[]  {&quot;TABLE&quot;});</code></li>
+<li><code>while  (mrs.next())</code></li>
+<li><code>tableNames.addItem(mrs.getString(3));</code></li>
+</ol>
+<p>通过ResultSetMetaData提供结果集的相关信息，如每一列的名称、类型和字段宽度：</p>
+<ol>
+<li><code>ResultSet mrs = stat.executeQuery(&quot;SELECT * FROM &quot;  + tableName);</code></li>
+<li><code>ResultSetMetaData meta = mrs.getMetaData();</code></li>
+<li><code>for  (int i =  1; i &lt;= meta.getColumnCount(); i++)  {</code></li>
+<li><code>String columnName = meta.getColumnLabel(i);</code></li>
+<li><code>int columnWidth = meta.getColumnDisplaySize(i);</code></li>
+<li><code>...</code></li>
+<li><code>}</code></li>
+</ol>
+<p><strong>java.sql.Connection 1.1</strong></p>
+<ol>
+<li><code>DatabaseMetaData getMetaData()  //返回一个DatabaseMetaData对象，该对象封装了有关数据库连接的元数据</code></li>
+</ol>
+<p><strong>java.sql.DatabaseMetaData 1.1</strong></p>
+<ol>
+<li><code>ResultSet getTables(String catalog,  String schemaPattern,  String tableNamePattern,  String types[])  //返回某个目录中的所有表的描述，该目录必须符合给定的模式（schema）、表名字模式以及类型标准</code></li>
+<li><code>int getJDBCMajorVersion()</code></li>
+<li><code>int getJDBCMinorVersion()  //返回建立数据库连接的JDBC驱动程序的主版本号和次版本号</code></li>
+<li><code>int getMaxConnections()  //返回可同时连接到数据库的最大连接数</code></li>
+<li><code>int getMaxStatements()  //返回单个数据库连接允许同时打开的最大语句数</code></li>
+</ol>
+<p><strong>java.sql.ResultSet 1.1</strong></p>
+<ol>
+<li><code>ResultSetMetaData getMetaData()  //返回与当前ResultSet对象中的列相关的元数据</code></li>
+</ol>
+<p><strong>java.sql.ResultSetMetaData 1.1</strong></p>
+<ol>
+<li><code>int getColumnCount()  //返回当前ResultSet对象中的列数</code></li>
+<li><code>int getColumnDisplaySize(int column)  //返回给定列序号的列的最大宽度</code></li>
+<li><code>String getColumnLabel(int column)  //返回该列所建议的名称</code></li>
+<li><code>String getColumnName(int column)  //返回指定的列序号所对应的列名</code></li>
+</ol>
+<p><strong>事务</strong></p>
+<p>回滚（rollback）</p>
+<p>默认为自动提交模式（autocommit mode）</p>
+<ol>
+<li><code>conn.setAutoCommit(false);</code></li>
+<li><code>Statement stat = conn.createStatement();</code></li>
+<li><code>stat.executeUpdate(command1);</code></li>
+<li><code>stat.executeUpdate(command2);</code></li>
+<li><code>...</code></li>
+<li><code>conn.commit();</code></li>
+<li><code>如果出现错误，请调用：</code></li>
+<li><code>conn.rollback();</code></li>
+</ol>
+<p>保存点</p>
+<ol>
+<li><code>Statement stat = conn.createStatement();  //start transaction; rollback() goes here</code></li>
+<li><code>stat.executeUpdate(command1);</code></li>
+<li><code>Savepoint svpt = conn.setSavepoint();  //set savepoint; rollback(svpt) goes here</code></li>
+<li><code>stat.executeUpdate(command2);</code></li>
+<li><code>if  (...) conn.rollback(svpt);  //undo effect of command2</code></li>
+<li><code>...</code></li>
+<li><code>conn.commit();</code></li>
+<li><code>conn.releaseSavepoint(svpt);</code></li>
+</ol>
+<p>批量更新</p>
+<p>使用DatabaseMetaData类中的supportsBatchUpdates方法可以获知数据库是否支持这种特性</p>
+<p>可以是INSERT、UPDATE、DELETE等操作，也可以是CREATE TABLE和DROP TABLE，但不可以是SELECT命令，会抛异常</p>
+<ol>
+<li><code>Statement stat = conn.createStatement();</code></li>
+<li><code>String command =  &quot;CREATE TABLE ...&quot;;</code></li>
+<li><code>stat.addBatch(command);</code></li>
+<li><code>while  (...)  {</code></li>
+<li><code>command =  &quot;INSERT INTO ... VALUES (&quot;  +  ...  +  &quot;)&quot;;</code></li>
+<li><code>stat.addBatch(command);</code></li>
+<li><code>}</code></li>
+<li><code>int[] counts = stat.executeBatch();</code></li>
+</ol>
+<p><strong>java.sql.Connection 1.1</strong></p>
+<ol>
+<li><code>boolean getAutoCommit()</code></li>
+<li><code>void setAutoCommit(boolean b)  //获取该连接中的自动提交模式，或将其设置为b</code></li>
+<li><code>void commit()  //提交自上次提交以来所有执行过的语句</code></li>
+<li><code>void rollback()  //撤销自上次提交以来所有执行过的语句所产生的影响</code></li>
+<li><code>Savepoint setSavepoint()</code></li>
+<li><code>Savepoint setSavepoint(String name)  //设置一个匿名或具名的保存点</code></li>
+<li><code>void rollback(Savepoint svpt)  //回滚到给定保存点</code></li>
+<li><code>void releaseSavepoint(Savepoint svpt)  //释放给定的保存点</code></li>
+</ol>
+<p><strong>java.sql.Savepoint 1.4</strong></p>
+<ol>
+<li><code>int getSavepointId()  //获取该匿名保存点的ID号，如果有名字则抛出SQLException异常</code></li>
+<li><code>String getSavepointName()  //获取该保存点的名称，如果为匿名保存点则抛出SQLException异常</code></li>
+</ol>
+<p><strong>java.sql.Statement 1.1</strong></p>
+<ol>
+<li><code>void addBatch(String command)  //添加命令到当前批量命令中</code></li>
+<li><code>int[] executeBatch()  //执行当前批量更新中的所有命令，返回一个记录数的数组</code></li>
+</ol>
+<p><strong>java.sql.DatabaseMetaData 1.1</strong></p>
+<ol>
+<li><code>boolean supportsBatchUpdates()  //如果驱动程序支持批量更新，返回true</code></li>
+</ol>
+<p><strong>Web与企业应用中的连接管理</strong></p>
+<p>通过目录接口（JNDI）查找</p>
+<ol>
+<li><code>Context jndiContext =  new  InitialContext();</code></li>
+<li><code>DataSource source =  (DataSource) jndiContext.lookup(&quot;java:comp/env/jdbc/corejava&quot;);</code></li>
+<li><code>Connection conn = source.getConnection();</code></li>
+</ol>
+<p><strong>LDAP介绍</strong></p>
+<p>轻量级目录访问协议（Lightweight Directory Access Protocol, LDAP）</p>
+<p>通用的LDAP属性</p>
+<p>| 属性ID     | 意义     |<br>| dc     | 域构件     |<br>| cn     | 通用名     |<br>| sn     | 姓     |<br>| dn     | 专有名称     |<br>| o     | 组织 |<br>| ou     | 组织单元     |<br>| uid     | 唯一标识符 |</p>
+<p>访问LDAP目录信息</p>
+<ol>
+<li><code>Hashtable env =  new  Hashtable();</code></li>
+<li><code>env.put(Context.SECURITY_PRINCIPAL, username);</code></li>
+<li><code>env.put(Context.SECURITY_CREDENTIALS, password);</code></li>
+<li><code>DirContext initial =  new  InitialDirContext(env);</code></li>
+<li><code>DirContext context =  (DirContext) initial.lookup(&quot;ldap://localhost:389&quot;);</code></li>
+</ol>
+<p><strong>javax.naming.directory.InitialDirContext 1.3</strong></p>
+<ol>
+<li><code>InitialDirContext(Hashtable env)  //使用给定的环境设置创建一个目录上下文，散列表包含了Context.SECURITY_PRINCIPAL、Context.SECURITY_CREDENTIALS以及其他键的相关信息</code></li>
+</ol>
+<p><strong>javax.naming.Context 1.3</strong></p>
+<ol>
+<li><code>Object lookup(String name)  //使用给定的名称查找对象，返回通常为一棵子树或一个叶对象</code></li>
+<li><code>Context createSubcontext(String name)  //使用给定的名字创建一个子上下文</code></li>
+<li><code>void destroySubcontext(String name)  //根据给定的名称删除其对应的子上下文</code></li>
+<li><code>void close()  //关闭该上下文</code></li>
+</ol>
+<p><strong>javax.naming.directory.DirContext 1.3</strong></p>
+<ol>
+<li><code>Attributes getAttributes(String name)  //根据给定的名称，得到其对应条目的属性</code></li>
+<li><code>void modifyAttributes(String name,  int flag,  Attributes modes)  //根据给定的名称，修改其对应条目的属性，flag为以下常量之一：DirContext.ADD_ATTRIBUTE、DirContext.REMOVE_ATTRIBUTE或DirContext.REPLACE_ATTRIBUTE</code></li>
+</ol>
+<p><strong>javax.naming.directory.Attributes 1.3</strong></p>
+<ol>
+<li><code>Attribute get(String id)  //根据给定的ID，得到其对应的属性</code></li>
+<li><code>NamingEnumeration  extends  Attribute&gt; getAll()  //返回一个枚举对象，用于迭代遍历该属性的所有值</code></li>
+<li><code>Attribute put(Attribute attr)</code></li>
+<li><code>Attribute put(String id,  Object value)  //将一个属性添加到属性集合中</code></li>
+</ol>
+<p><strong>javax.naming.directory.BasicAttributes 1.3</strong></p>
+<ol>
+<li><code>BasicAttributes(String id,  Object value)  //使用给定的ID和值，构造一个属性集合，该集合只包含了单个属性</code></li>
+</ol>
+<p><strong>javax.naming.directory.Attribute 1.3</strong></p>
+<ol>
+<li><code>String getId()  //获取该属性的ID</code></li>
+<li><code>Object get()  //如果值已排好序，则获取该属性的第一个值，未排序则返回其中任意一个值</code></li>
+<li><code>NamingEnumeration getAll()  //返回一个枚举对象，用于迭代遍历该属性的所有值</code></li>
+</ol>
+<p><strong>javax.naming.NamingEnumeration 1.3</strong></p>
+<ol>
+<li><code>boolean hasMore()  //如果该对象还包含其他元素，返回true</code><br><code>T next()  //返回下一个元素</code></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/13/常见问题-Tomcat/" rel="next" title="常见问题--Tomcat">
+                <i class="fa fa-chevron-left"></i> 常见问题--Tomcat
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/13/读书笔记-Java核心技术-基础篇/" rel="prev" title="读书笔记--Java核心技术--基础篇">
+                读书笔记--Java核心技术--基础篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://b-ssl.duitang.com/uploads/item/201602/18/20160218194039_c2Kmt.jpeg"
+               alt="KioLuo" />
+          <p class="site-author-name" itemprop="name">KioLuo</p>
+           
+              <p class="site-description motion-element" itemprop="description">gogogo~</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KioLuo</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
